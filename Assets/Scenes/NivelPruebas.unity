@@ -156,7 +156,7 @@ Rigidbody2D:
   m_LinearDamping: 0
   m_AngularDamping: 0.05
   m_GravityScale: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: f9665e96217bfef448b2fffe476e0c50, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -299,9 +299,10 @@ MonoBehaviour:
   jumpForce: 6
   groundLayer:
     serializedVersion: 2
-    m_Bits: 72
+    m_Bits: 8
   rCircle: 0.2
   posCircle: {x: 0, y: -0.7}
+  isGrounded: 0
 --- !u!114 &383487496
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -567,7 +568,7 @@ BoxCollider2D:
   m_Enabled: 1
   serializedVersion: 3
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: f9665e96217bfef448b2fffe476e0c50, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -756,7 +757,7 @@ Rigidbody2D:
   m_LinearDamping: 0
   m_AngularDamping: 0.05
   m_GravityScale: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: f9665e96217bfef448b2fffe476e0c50, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -850,12 +851,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   teclaSalto: Jump
-  jumpForce: 3
+  jumpForce: 6
   groundLayer:
     serializedVersion: 2
     m_Bits: 8
   rCircle: 0.3
   posCircle: {x: 0, y: -1.3}
+  isGrounded: 0
 --- !u!114 &1343359177
 MonoBehaviour:
   m_ObjectHideFlags: 0

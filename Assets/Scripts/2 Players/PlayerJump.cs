@@ -9,7 +9,7 @@ public class PlayerJump : MonoBehaviour
     [Header("Colicion piso")]
     [SerializeField] private float rCircle;
     [SerializeField] private Vector2 posCircle;
-    private bool isGrounded; // Para saber si estamos tocando el suelo
+    [SerializeField] private bool isGrounded; // Para saber si estamos tocando el suelo
     private Rigidbody2D rb;
 
     void Start()
