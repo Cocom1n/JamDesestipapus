@@ -21,7 +21,6 @@ public class PlayerMovement : MonoBehaviour
     {
         // Obtener entrada del jugador
         float horizontalInput = Input.GetAxis(teclas);
-        //float horizontalInput = Input.GetAxis("Horizontal");
         Move(horizontalInput);
 
         // Almacenar la dirección del movimiento
@@ -30,18 +29,19 @@ public class PlayerMovement : MonoBehaviour
 
     void Move(float horizontalInput)
     {
-        // Si hay movimiento de entrada, aceleramos hacia la velocidad deseada
-        if (movementInput != Vector2.zero)
+        Vector2 targetVelocity = movementInput * speed;
+        float lerpFactor = 1f - Mathf.Exp(-acceleration * Time.deltaTime);
+
+        currentVelocity = Vector2.Lerp(currentVelocity, targetVelocity, lerpFactor);
+
+        
+        if (movementInput == Vector2.zero) //si no se preciona ninguna tecla lo hace frenar hasta q se quede quietesito
         {
-            currentVelocity = Vector2.MoveTowards(currentVelocity, movementInput * speed, acceleration * Time.deltaTime);
-        }
-        else
-        {
-            // Si no hay entrada, desaceleramos
-            currentVelocity = Vector2.MoveTowards(currentVelocity, Vector2.zero, deceleration * Time.deltaTime);
+            float decelFactor = 1f - Mathf.Exp(-deceleration * Time.deltaTime);
+            currentVelocity = Vector2.Lerp(currentVelocity, Vector2.zero, decelFactor);
         }
 
-        // Aplicar la velocidad horizontal al Rigidbody2D (sin afectar la velocidad en Y)
         rb.linearVelocity = new Vector2(currentVelocity.x, rb.linearVelocity.y);
+
     }
 }
