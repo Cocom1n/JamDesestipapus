@@ -14,11 +14,13 @@ public class Envestida : MonoBehaviour
     private int teclasDireccion;
 
     private PlayerMovement playerMovement;
+    private Animator animatorController;
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         playerMovement = GetComponent<PlayerMovement>();
+        animatorController = GetComponentInChildren<Animator>();
     }
 
     void Update()
@@ -39,6 +41,7 @@ public class Envestida : MonoBehaviour
     {
         if (isDashing)
         {
+           
             rb.linearVelocity = new Vector2(teclasDireccion * velocidad, rb.linearVelocity.y);
             tiempoRestante -= Time.fixedDeltaTime;
 
@@ -58,6 +61,8 @@ public class Envestida : MonoBehaviour
 
         if (playerMovement != null)
             playerMovement.enabled = false;
+        if (animatorController != null)
+            animatorController.SetTrigger("Embestida");
     }
 
     void Detenerse() //detiene el dash y vuelve a funcionar el script de movimiento normal
