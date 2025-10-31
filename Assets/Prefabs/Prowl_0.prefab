@@ -80,7 +80,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 5
   m_Sprite: {fileID: 3948998696085778323, guid: fbed237234f98e945a267421c27042ef, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -153,7 +153,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDamping: 0
   m_AngularDamping: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 4
   m_Material: {fileID: 6200000, guid: f9665e96217bfef448b2fffe476e0c50, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
@@ -178,7 +178,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   teclaSalto: Jump
-  jumpForce: 9
+  jumpForce: 20
   groundLayer:
     serializedVersion: 2
     m_Bits: 8
@@ -199,8 +199,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   teclas: Horizontal
   speed: 10
-  acceleration: 15
-  deceleration: 10
+  acceleration: 40
+  deceleration: 40
 --- !u!114 &39074143080230919
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -213,8 +213,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98fe99f42d01a934e8c5fd3a6b480e33, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  velocidad: 15
-  duracion: 0.4
+  velocidad: 45
+  duracion: 0.15
   Cooldown: 1
   enemyLayer:
     serializedVersion: 2
