@@ -7,7 +7,7 @@ public class RecogerObjeto : MonoBehaviour
     [SerializeField] float fuerza;
     [SerializeField] LayerMask layerObjeto;
 
-    private void Update()
+    private void FixedUpdate()
     {
         LevantarObjeto();
     }
