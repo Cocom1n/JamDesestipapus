@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4834698146607703416}
   - component: {fileID: 6776519246701484800}
   - component: {fileID: 8090360467289678319}
-  - component: {fileID: 4291976899402862261}
+  - component: {fileID: 5946416474070606300}
   m_Layer: 0
   m_Name: Bala
   m_TagString: Untagged
@@ -30,7 +30,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -3.321, y: 1.413, z: 0}
-  m_LocalScale: {x: 0.3075, y: 0.1546875, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -78,7 +78,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 10
+  m_SortingOrder: 12
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -163,7 +163,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &4291976899402862261
+--- !u!114 &5946416474070606300
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -172,6 +172,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 3340347690927941882}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f063ed99ba23b4845969fb6d5855bae4, type: 3}
+  m_Script: {fileID: 11500000, guid: 9a58dea94c55f4a4390e02c5afd2ae31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  danio: 10
+  destruirAlImpactar: 1
+  tiempoDeVida: 5
