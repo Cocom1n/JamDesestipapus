@@ -1,34 +1,25 @@
 fileFormatVersion: 2
-guid: 7930502201a422c4facfaaa3d0749e96
+guid: 39e8e23e670a14948b5520f661984f64
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -3557650819100180651
-    second: spriteshettperro_0
+      213: 3082156268175475096
+    second: VidrioNaveAlien_0
   - first:
-      213: 2705183685092973662
-    second: spriteshettperro_1
+      213: -3980520040070357921
+    second: VidrioNaveAlien_1
   - first:
-      213: 3455039601621452984
-    second: spriteshettperro_2
+      213: -8697277727361605254
+    second: VidrioNaveAlien_2
   - first:
-      213: 2407366608104069130
-    second: spriteshettperro_3
+      213: 8119753751868327341
+    second: VidrioNaveAlien_3
   - first:
-      213: -5496540322649301006
-    second: spriteshettperro_4
+      213: -3419523302958178061
+    second: VidrioNaveAlien_4
   - first:
-      213: -3406990513048197305
-    second: spriteshettperro_5
-  - first:
-      213: -504265711478430798
-    second: spriteshettperro_6
-  - first:
-      213: -664164508614630209
-    second: spriteshettperro_7
-  - first:
-      213: -2736476663452840825
-    second: spriteshettperro_8
+      213: -9200537485477416375
+    second: VidrioNaveAlien_5
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -137,13 +128,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: spriteshettperro_0
+      name: VidrioNaveAlien_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 500
-        width: 100
-        height: 100
+        y: 1000
+        width: 300
+        height: 200
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -152,20 +143,64 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d142f63f2ccfa0044ba544d44d8c467b
-      internalID: 1942477595
+      spriteID: defeecadf2dc12b4dbe282f908feb559
+      internalID: -1672866121
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: spriteshettperro_1
+      name: VidrioNaveAlien_1
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 800
+        width: 300
+        height: 200
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b1bd491e9c5f9704ba46d69554f2275b
+      internalID: -2110929676
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: VidrioNaveAlien_2
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 600
+        width: 300
+        height: 200
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d42ba63709144b941baf0bd4c2226990
+      internalID: -1973870680
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: VidrioNaveAlien_3
       rect:
         serializedVersion: 2
         x: 0
         y: 400
-        width: 100
-        height: 100
+        width: 300
+        height: 200
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -174,42 +209,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c884680d3b7d2634ab58b373f87420c9
-      internalID: 1616666378
+      spriteID: 30e4ad4085d80824faeeee7fa65df129
+      internalID: -1942734778
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: spriteshettperro_2
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 300
-        width: 100
-        height: 100
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 14f7c4cbf35959e4ba2a59dd77243993
-      internalID: -1509527142
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: spriteshettperro_3
+      name: VidrioNaveAlien_4
       rect:
         serializedVersion: 2
         x: 0
         y: 200
-        width: 100
-        height: 100
+        width: 300
+        height: 200
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -218,42 +231,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2643aafd16368004cb5f6caba105da27
-      internalID: -318273251
+      spriteID: 596612825f426d14a96f8d6b72d44468
+      internalID: -312749935
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: spriteshettperro_4
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 100
-        width: 100
-        height: 100
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 0351b54e98f50a747993fcf359ad0cfd
-      internalID: -2144432737
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: spriteshettperro_5
+      name: VidrioNaveAlien_5
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 100
-        height: 100
+        width: 300
+        height: 200
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -262,8 +253,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4ad5709a354cb924991f1a3ce8e9d7d5
-      internalID: 1152297172
+      spriteID: e77374087dd0ba441870cc2c270bd014
+      internalID: 1405787326
       vertices: []
       indices: 
       edges: []
@@ -272,7 +263,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: e1c962aa5a9e5e54b80b2e21f091f53f
+    spriteID: 5d3f8d1a793c2e5418e26d3862818913
     internalID: 0
     vertices: []
     indices: 
@@ -282,12 +273,12 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      spriteshettperro_0: 1942477595
-      spriteshettperro_1: 1616666378
-      spriteshettperro_2: -1509527142
-      spriteshettperro_3: -318273251
-      spriteshettperro_4: -2144432737
-      spriteshettperro_5: 1152297172
+      VidrioNaveAlien_0: -1672866121
+      VidrioNaveAlien_1: -2110929676
+      VidrioNaveAlien_2: -1973870680
+      VidrioNaveAlien_3: -1942734778
+      VidrioNaveAlien_4: -312749935
+      VidrioNaveAlien_5: 1405787326
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
