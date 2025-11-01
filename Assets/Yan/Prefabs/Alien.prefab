@@ -81,7 +81,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 15
   m_Sprite: {fileID: -7249320057078443653, guid: adf2052ab70b5804c87790d5e3ca37b7, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -136,6 +136,7 @@ MonoBehaviour:
   velocidadMovimiento: 3
   enBorde: 0
   enemyBehaviour: {fileID: 7939433875664525600}
+  centroMapa: 0
 --- !u!114 &5942610993683338505
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -148,8 +149,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73ce138853cff6f4c993d77acac722e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxVida: 3
-  balasRecibidas: 0
+  maxVida: 10
 --- !u!70 &8806526008969524952
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -222,8 +222,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rangoAtaque: 1
-  Player: {fileID: 0}
   animator: {fileID: 1485469346936313543}
   esperaAtaque: 1
   ataqueTiempo: 0
+  danioAlien: 5
   atacando: 0

@@ -20,13 +20,17 @@ public class GameManager : MonoBehaviour
 
     [Header("UI")]
     [SerializeField] private TextMeshProUGUI textoTiempo;
-    [SerializeField] private TextMeshProUGUI textoEstado;
+    [SerializeField] private GameObject imagenSol;
+    [SerializeField] private GameObject imagenLuna;
     [SerializeField] private TextMeshProUGUI textoMultiplicadorOvejas;
     [SerializeField] private GameObject panelDerrota;
 
     [Header("Prefabs")]
     [SerializeField] private GameObject prefabOveja;
     [SerializeField] private GameObject prefabComida;
+
+    [Header("SpawnersEnemigos")]
+    [SerializeField] private Spawner[] spawners;
 
     private List<Oveja> ovejasVivas = new List<Oveja>();
     private List<Comida> comidasVivas = new List<Comida>();
@@ -56,7 +60,6 @@ public class GameManager : MonoBehaviour
         tiempoRestante -= Time.deltaTime;
         textoTiempo.text = tiempoRestante.ToString("0");
 
-        // NUEVO: Actualizar contador de ovejas cada frame
         ActualizarContadorOvejas();
 
         TransicionesDeColor();
@@ -71,7 +74,7 @@ public class GameManager : MonoBehaviour
     }
 
     // ------------------------------
-    // NUEVO: ACTUALIZAR UI DE OVEJAS
+    // ACTUALIZAR UI DE OVEJAS
     // ------------------------------
 
     private void ActualizarContadorOvejas()
@@ -81,7 +84,6 @@ public class GameManager : MonoBehaviour
             int cantidad = ovejasVivas.Count;
             textoMultiplicadorOvejas.text = $"x{cantidad}";
 
-            // Opcional: cambiar color según cantidad
             if (cantidad <= 1)
                 textoMultiplicadorOvejas.color = Color.red;
             else if (cantidad <= 3)
@@ -105,11 +107,22 @@ public class GameManager : MonoBehaviour
         esDia = true;
         esNoche = false;
         tiempoRestante = duracionDia;
-        textoEstado.text = "DÍA";
         luzGlobal.color = colorDia;
+        imagenSol.SetActive(true);
+        imagenLuna.SetActive(false);
+
+        foreach(Spawner spawner in spawners)
+        {
+            if(spawner != null)
+            {
+                spawner.DetenerSpawn();
+                spawner.DestruAliensRestantes();
+            }
+        }
+            
 
         DuplicarEntidades();
-        ActualizarContadorOvejas(); // Actualizar después de duplicar
+        ActualizarContadorOvejas();
     }
 
     void IniciarNoche()
@@ -117,8 +130,17 @@ public class GameManager : MonoBehaviour
         esDia = false;
         esNoche = true;
         tiempoRestante = duracionNoche;
-        textoEstado.text = "NOCHE";
         luzGlobal.color = colorNoche;
+        imagenSol.SetActive(false);
+        imagenLuna.SetActive(true);
+
+        foreach (Spawner spawner in spawners)
+        {
+            if (spawner != null)
+            {
+                spawner.IniciarSpawn();
+            }
+        }
     }
 
     void VerificarFinDeNoche()
@@ -138,7 +160,7 @@ public class GameManager : MonoBehaviour
         if (!ovejasVivas.Contains(oveja))
         {
             ovejasVivas.Add(oveja);
-            ActualizarContadorOvejas(); // Actualizar cuando se registra
+            ActualizarContadorOvejas(); 
         }
     }
 
@@ -147,7 +169,7 @@ public class GameManager : MonoBehaviour
         if (ovejasVivas.Contains(oveja))
         {
             ovejasVivas.Remove(oveja);
-            ActualizarContadorOvejas(); // Actualizar cuando se elimina
+            ActualizarContadorOvejas(); 
         }
 
         if (ovejasVivas.Count <= 0)
@@ -204,7 +226,6 @@ public class GameManager : MonoBehaviour
         if (juegoTerminado) return;
 
         juegoTerminado = true;
-        textoEstado.text = "¡TODAS LAS OVEJAS HAN MUERTO!";
         Debug.Log("Perdiste. Todas las ovejas murieron.");
 
         if (panelDerrota != null)

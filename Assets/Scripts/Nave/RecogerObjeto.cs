@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class RecogerObjeto : MonoBehaviour
 {
-    [Header("Área de detección")]
+    [Header("area de deteccion")]
     [SerializeField] private Vector2 cuadradoTam = new Vector2(2f, 3f);
     [SerializeField] private float fuerzaAtraccion = 8f;
     [SerializeField] private LayerMask layerObjeto;

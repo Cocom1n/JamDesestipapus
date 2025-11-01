@@ -1,22 +1,24 @@
 using UnityEngine;
 
-public class EnemyLife : MonoBehaviour
+public class EnemyLife : MonoBehaviour, IDaniable, IMorir
 {
-    [SerializeField] public int maxVida;
-    [SerializeField] private int balasRecibidas;
+    [SerializeField] public float maxVida;
+    private float vidaActual;
 
-    public void RecibirDaño(int daño)
+    public void Start()
     {
-        balasRecibidas += daño;
-        Debug.Log("Balas recibidas: " + balasRecibidas);
-
-        if (balasRecibidas >= maxVida)
+        vidaActual = maxVida;
+    }
+    public void RecibirDanio(float daño)
+    {
+        vidaActual-=daño;
+        if(vidaActual<=0)
         {
             Morir();
         }
     }
 
-    void Morir()
+    public void Morir()
     {
         Debug.Log("Alien destruido");
         Destroy(gameObject);
