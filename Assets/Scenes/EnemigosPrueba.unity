@@ -193,8 +193,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 945a129ccb29f9141992dfa24b3c11bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  alien: {fileID: 47822529133652544, guid: f86ddcabf94a08b48a73ebe653325a82, type: 3}
+  alien: {fileID: 1234232086421503261, guid: 44d60928d9300c6498697f784f148fd3, type: 3}
   alienIntervalo: 1
+  alienMax: 6
+  cuantosAliens: 0
 --- !u!4 &662594117
 Transform:
   m_ObjectHideFlags: 0
@@ -204,7 +206,7 @@ Transform:
   m_GameObject: {fileID: 662594115}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 7.87, y: -1.24, z: -0.05261657}
+  m_LocalPosition: {x: 7.87, y: -1.39, z: -0.05261657}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1239,7 +1241,7 @@ GameObject:
   - component: {fileID: 1463522807}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1327,7 +1329,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 2
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 1, g: 0, b: 0, a: 1}
   m_FlipX: 0
@@ -1398,7 +1400,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
