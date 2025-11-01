@@ -32,15 +32,15 @@ public class Disparar : MonoBehaviour
         rb.linearVelocity = direction * bulletSpeed;
        
     }
-
-    /*
-    private float getAngleMouse()
-    {
-        Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        Vector3 mouseDir = mousePos - transform.position;
-        mouseDir.z = 0;
-        float angle = (Vector3.SignedAngle(Vector3.right, mouseDir, Vector3.forward) + 360) % 360; ;
-        return angle;
-
-    }*/
 }
+/*
+private float getAngleMouse()
+{
+    Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+    Vector3 mouseDir = mousePos - transform.position;
+    mouseDir.z = 0;
+    float angle = (Vector3.SignedAngle(Vector3.right, mouseDir, Vector3.forward) + 360) % 360; ;
+    return angle;
+
+}*/
+

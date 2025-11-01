@@ -11,7 +11,6 @@ public class PlayerShoot : MonoBehaviour
         {
             GameObject bullet = Instantiate(bulletPrefab, firePoint.position, Quaternion.identity);
             Vector2 shootDir = firePoint.right;
-            bullet.GetComponent<Bala>().SetDireccion();
         }
     }
 }

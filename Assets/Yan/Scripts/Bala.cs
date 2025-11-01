@@ -2,38 +2,50 @@
 
 public class Bala : MonoBehaviour
 {
+    [Header("Configuración de Daño")]
+    [SerializeField] private float danio = 10f;
+    [SerializeField] private bool destruirAlImpactar = true;
 
-    [SerializeField] public int daño;
-    [SerializeField] public float velocidad;
-    [SerializeField] public float tiempoVida;
-    [SerializeField] private Vector2 direccionBala;
-    public void SetDireccion()
+    [Header("Tiempo de Vida")]
+    [SerializeField] private float tiempoDeVida = 5f;
+
+    private void Start()
     {
-        direccionBala = direccionBala.normalized;
+        // Destruir la bala después de un tiempo para no saturar la escena
+        Destroy(gameObject, tiempoDeVida);
     }
 
-    void Start()
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        Destroy(gameObject, tiempoVida);
-    }
-   
-    // Update is called once per frame
-    void Update()
-    {
-        transform.Translate(direccionBala * velocidad * Time.deltaTime);
-    }
+        // Intentar obtener el componente IDaniable
+        IDaniable objetoDaniable = collision.GetComponent<IDaniable>();
 
-    void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.CompareTag("Alien"))
+        if (objetoDaniable != null)
         {
-            EnemyLife enemy = other.GetComponent<EnemyLife>();
-            if (enemy != null)
+            objetoDaniable.RecibirDanio(danio);
+            Debug.Log($"Daño aplicado a {collision.gameObject.name}");
+
+            if (destruirAlImpactar)
             {
-                enemy.RecibirDaño(daño);
+                Destroy(gameObject);
             }
-            Destroy(gameObject);
         }
     }
 
+    // Alternativa usando OnCollisionEnter2D si usas colliders normales
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        IDaniable objetoDaniable = collision.gameObject.GetComponent<IDaniable>();
+
+        if (objetoDaniable != null)
+        {
+            objetoDaniable.RecibirDanio(danio);
+            Debug.Log($"Daño aplicado a {collision.gameObject.name}");
+        }
+
+        if (destruirAlImpactar)
+        {
+            Destroy(gameObject);
+        }
+    }
 }
