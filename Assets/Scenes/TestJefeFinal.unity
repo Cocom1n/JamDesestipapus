@@ -119,6 +119,11 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!4 &445146581 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3735871655976552677, guid: 8707e077df56ee847a954cb39dd31217, type: 3}
+  m_PrefabInstance: {fileID: 2091021860}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &714134076
 GameObject:
   m_ObjectHideFlags: 0
@@ -130,8 +135,8 @@ GameObject:
   - component: {fileID: 714134080}
   - component: {fileID: 714134079}
   - component: {fileID: 714134077}
-  - component: {fileID: 714134081}
   - component: {fileID: 714134082}
+  - component: {fileID: 714134083}
   m_Layer: 0
   m_Name: Jefe
   m_TagString: Untagged
@@ -152,8 +157,8 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 100
-  m_LinearDamping: 0
-  m_AngularDamping: 0.05
+  m_LinearDamping: 0.5
+  m_AngularDamping: 0
   m_GravityScale: 1
   m_Material: {fileID: 0}
   m_IncludeLayers:
@@ -162,9 +167,9 @@ Rigidbody2D:
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 4
 --- !u!212 &714134079
 SpriteRenderer:
@@ -230,24 +235,12 @@ Transform:
   m_GameObject: {fileID: 714134076}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -11.02, y: -3.44, z: 0}
+  m_LocalPosition: {x: -20.4, y: -3.2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &714134081
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 714134076}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2d3119de5a428b34d8ba720e9d003434, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!61 &714134082
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -294,6 +287,24 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 2}
   m_EdgeRadius: 0
+--- !u!114 &714134083
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 714134076}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d3119de5a428b34d8ba720e9d003434, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  jugador: {fileID: 445146581}
+  animator: {fileID: 0}
+  vidaJefe: 200
+  velocidadCarga: 30
+  tiempoEntreCargas: 10
+  fuerzaImpulsoJugador: 50
 --- !u!1 &1019326286
 GameObject:
   m_ObjectHideFlags: 0
@@ -578,7 +589,7 @@ GameObject:
   - component: {fileID: 1167299441}
   m_Layer: 0
   m_Name: Suelo (1)
-  m_TagString: Untagged
+  m_TagString: LimiteMapa
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -712,7 +723,7 @@ GameObject:
   - component: {fileID: 1956054487}
   m_Layer: 0
   m_Name: Suelo (2)
-  m_TagString: Untagged
+  m_TagString: LimiteMapa
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -841,6 +852,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 729955995286641501, guid: 8707e077df56ee847a954cb39dd31217, type: 3}
+      propertyPath: m_Mass
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 3735871655976552677, guid: 8707e077df56ee847a954cb39dd31217, type: 3}
       propertyPath: m_LocalPosition.x
       value: 11.05
@@ -888,6 +903,10 @@ PrefabInstance:
     - target: {fileID: 7105100222151244781, guid: 8707e077df56ee847a954cb39dd31217, type: 3}
       propertyPath: m_Name
       value: Meowlsito
+      objectReference: {fileID: 0}
+    - target: {fileID: 7105100222151244781, guid: 8707e077df56ee847a954cb39dd31217, type: 3}
+      propertyPath: m_TagString
+      value: Player
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

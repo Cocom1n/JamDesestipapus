@@ -1,16 +1,9 @@
-using UnityEngine;
-
-public class IAccionEnemigo : MonoBehaviour
+public interface IAccionEnemigo
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    //Iniciar la accion
+    void EjecutarAccion(UnityEngine.Transform jugador, UnityEngine.Rigidbody2D rb);
+    //Detener la accion
+    void DetenerAccion();
+    //Indicar si la accion esta corriendo
+    bool EstaEjecutandoAccion();
 }

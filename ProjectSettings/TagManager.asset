@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Alien
   - Oveja
+  - LimiteMapa
   layers:
   - Default
   - TransparentFX
