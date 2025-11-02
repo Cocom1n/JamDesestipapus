@@ -1,31 +1,37 @@
 fileFormatVersion: 2
-guid: 66d91f51f45cc8f4e853294a5010ca2d
+guid: 18f823154ab87554ebc98e5a674076d6
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 7292261042728347861
-    second: obejaLocaSheet_0
+      213: -4652128582718751236
+    second: spriteLobixon_0
   - first:
-      213: -6454674541332032865
-    second: obejaLocaSheet_1
+      213: 380223033695717996
+    second: spriteLobixon_1
   - first:
-      213: 5284605388286005266
-    second: obejaLocaSheet_2
+      213: 1239542079524697160
+    second: spriteLobixon_2
   - first:
-      213: 8510415338588235529
-    second: obejaLocaSheet_3
+      213: -8630978703067937629
+    second: spriteLobixon_3
   - first:
-      213: 4329179696507286709
-    second: obejaLocaSheet_4
+      213: -7595096600674138046
+    second: spriteLobixon_4
   - first:
-      213: 3992941047304653936
-    second: obejaLocaSheet_5
+      213: -6902160793150622343
+    second: spriteLobixon_5
   - first:
-      213: 2552448896227320146
-    second: obejaLocaSheet_6
+      213: 7564752911681038121
+    second: spriteLobixon_6
   - first:
-      213: -8520232664151512476
-    second: obejaLocaSheet_7
+      213: -9066255724764072761
+    second: spriteLobixon_7
+  - first:
+      213: 7510871783912703808
+    second: spriteLobixon_8
+  - first:
+      213: -1045882584305302521
+    second: spriteLobixon_9
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -134,177 +140,221 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: obejaLocaSheet_0
+      name: spriteLobixon_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 200
+        width: 300
+        height: 200
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b4f8b6bc78d792d438ac865ba2478b25
+      internalID: 1036642053
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spriteLobixon_1
+      rect:
+        serializedVersion: 2
+        x: 300
+        y: 200
+        width: 300
+        height: 200
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 935f4df3bea6d334c94a585c2bbe0333
+      internalID: 64194832
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spriteLobixon_2
+      rect:
+        serializedVersion: 2
+        x: 600
+        y: 200
+        width: 300
+        height: 200
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 71e9f6fa2ac51b34c86863059b888b5f
+      internalID: -453649636
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spriteLobixon_3
+      rect:
+        serializedVersion: 2
+        x: 900
+        y: 200
+        width: 300
+        height: 200
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d553644de68a5d047b8576cc2e328d06
+      internalID: -347859378
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spriteLobixon_4
+      rect:
+        serializedVersion: 2
+        x: 1200
+        y: 200
+        width: 300
+        height: 200
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3490997aa825f674a9bc11704e2079db
+      internalID: 1466590483
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spriteLobixon_5
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 100
-        height: 100
+        width: 300
+        height: 200
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 5d82e3548c0533560800000000000000
-      internalID: 7292261042728347861
+      spriteID: 63458c2ff6c2ee649bc29ba95e22d1a6
+      internalID: -1474427983
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: obejaLocaSheet_1
-      rect:
-        serializedVersion: 2
-        x: 100
-        y: 0
-        width: 100
-        height: 100
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: f929527f3b36c66a0800000000000000
-      internalID: -6454674541332032865
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: obejaLocaSheet_2
-      rect:
-        serializedVersion: 2
-        x: 200
-        y: 0
-        width: 100
-        height: 100
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 21017e20a90b65940800000000000000
-      internalID: 5284605388286005266
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: obejaLocaSheet_3
+      name: spriteLobixon_6
       rect:
         serializedVersion: 2
         x: 300
         y: 0
-        width: 100
-        height: 100
+        width: 300
+        height: 200
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 907669b09a11b1670800000000000000
-      internalID: 8510415338588235529
+      spriteID: 10a8dcf5ccdc28d48949e87e20b3d49b
+      internalID: -1197849901
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: obejaLocaSheet_4
-      rect:
-        serializedVersion: 2
-        x: 400
-        y: 0
-        width: 100
-        height: 100
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 5b4762b3ff5541c30800000000000000
-      internalID: 4329179696507286709
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: obejaLocaSheet_5
-      rect:
-        serializedVersion: 2
-        x: 500
-        y: 0
-        width: 100
-        height: 100
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 07c8bad1ab6c96730800000000000000
-      internalID: 3992941047304653936
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: obejaLocaSheet_6
+      name: spriteLobixon_7
       rect:
         serializedVersion: 2
         x: 600
         y: 0
-        width: 100
-        height: 100
+        width: 300
+        height: 200
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 251a7f66fbe1c6320800000000000000
-      internalID: 2552448896227320146
+      spriteID: b67270511e134b8449c1df08b1e19955
+      internalID: 1824576673
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: obejaLocaSheet_7
+      name: spriteLobixon_8
       rect:
         serializedVersion: 2
-        x: 700
+        x: 900
         y: 0
-        width: 100
-        height: 100
+        width: 300
+        height: 200
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 46aa199b88d02c980800000000000000
-      internalID: -8520232664151512476
+      spriteID: 079728f14399b424b9a04a5dd84b13f0
+      internalID: -352284306
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spriteLobixon_9
+      rect:
+        serializedVersion: 2
+        x: 1200
+        y: 0
+        width: 300
+        height: 200
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e8ab903b7fc42684ea5487383647a397
+      internalID: -664071068
       vertices: []
       indices: 
       edges: []
@@ -313,7 +363,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: a93ca41a1c27603408a880ad9c4b0de5
+    spriteID: c91de71554f36454ebb79908a0cb087b
     internalID: 0
     vertices: []
     indices: 
@@ -323,14 +373,16 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      obejaLocaSheet_0: 7292261042728347861
-      obejaLocaSheet_1: -6454674541332032865
-      obejaLocaSheet_2: 5284605388286005266
-      obejaLocaSheet_3: 8510415338588235529
-      obejaLocaSheet_4: 4329179696507286709
-      obejaLocaSheet_5: 3992941047304653936
-      obejaLocaSheet_6: 2552448896227320146
-      obejaLocaSheet_7: -8520232664151512476
+      spriteLobixon_0: 1036642053
+      spriteLobixon_1: 64194832
+      spriteLobixon_2: -453649636
+      spriteLobixon_3: -347859378
+      spriteLobixon_4: 1466590483
+      spriteLobixon_5: -1474427983
+      spriteLobixon_6: -1197849901
+      spriteLobixon_7: 1824576673
+      spriteLobixon_8: -352284306
+      spriteLobixon_9: -664071068
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
