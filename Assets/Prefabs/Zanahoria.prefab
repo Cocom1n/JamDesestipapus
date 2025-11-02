@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3255157766920449267}
   - component: {fileID: 7491739825042031678}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: cositas_22
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -97,7 +97,7 @@ GameObject:
   m_Component:
   - component: {fileID: 122348927700561664}
   - component: {fileID: 2638168337157695552}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: cositas_31
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -186,7 +186,7 @@ GameObject:
   - component: {fileID: 6179064631610876871}
   - component: {fileID: 7281686901417174887}
   - component: {fileID: 8969173350677932056}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Zanahoria
   m_TagString: Untagged
   m_Icon: {fileID: 0}
