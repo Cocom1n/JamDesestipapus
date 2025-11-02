@@ -110,7 +110,7 @@ public class Jefe : MonoBehaviour
             estaCargando = false;
             if (caidaPicos != null)
             {
-                caidaPicos.IniciarEventoCaida();
+                caidaPicos.ActivarCaidaPicos();
             }
             Debug.Log("reproducir evento");
         }

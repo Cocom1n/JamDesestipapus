@@ -4,12 +4,13 @@ using UnityEngine;
 public class CaidaPicos : MonoBehaviour
 {
     [SerializeField] GameObject[] picos;
-    [SerializeField] float tiempoEntrePicos; 
-    [SerializeField]float tiempoDeCaida;
+    [SerializeField] float tiempoEntrePicos = 0.2f;
+    [SerializeField] float tiempoDeCaida = 0.5f;
     bool ordenAleatorio = true;
+    bool posicionesAleatoriasX = true;
+    [SerializeField] float rangoX = 2f;
 
-    public bool caidaIniciada = false;
-
+    bool caidaEnProgreso = false;
     Vector3[] posicionesOriginales;
 
     void Start()
@@ -22,28 +23,28 @@ public class CaidaPicos : MonoBehaviour
         }
     }
 
-    public void IniciarEventoCaida()
+    public void ActivarCaidaPicos()
     {
-        if (caidaIniciada) return;
-
-        caidaIniciada = true;
-        StartCoroutine(CaerUnoPorUno());
+        if (!caidaEnProgreso)
+            StartCoroutine(CaerYVolver());
     }
 
-    IEnumerator CaerUnoPorUno()
+    IEnumerator CaerYVolver()
     {
+        caidaEnProgreso = true;
+
         int[] indices = new int[picos.Length];
         for (int i = 0; i < indices.Length; i++) indices[i] = i;
+
         if (ordenAleatorio)
         {
             for (int i = 0; i < indices.Length; i++)
             {
                 int randomIndex = Random.Range(0, indices.Length);
-                int temp = indices[i];
-                indices[i] = indices[randomIndex];
-                indices[randomIndex] = temp;
+                (indices[i], indices[randomIndex]) = (indices[randomIndex], indices[i]);
             }
         }
+
         for (int i = 0; i < indices.Length; i++)
         {
             int idx = indices[i];
@@ -69,10 +70,21 @@ public class CaidaPicos : MonoBehaviour
                 rb.angularVelocity = 0;
                 rb.bodyType = RigidbodyType2D.Kinematic;
             }
-
             picos[i].transform.position = posicionesOriginales[i];
         }
 
-        caidaIniciada = false;
+        if (posicionesAleatoriasX)
+        {
+            for (int i = 0; i < picos.Length; i++)
+            {
+                if (picos[i] == null) continue;
+
+                Vector3 original = posicionesOriginales[i];
+                float randomX = original.x + Random.Range(-rangoX, rangoX);
+                picos[i].transform.position = new Vector3(randomX, original.y, original.z);
+            }
+        }
+
+        caidaEnProgreso = false;
     }
 }
