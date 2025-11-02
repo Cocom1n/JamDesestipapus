@@ -20,12 +20,13 @@ public class Jefe : MonoBehaviour
     bool estaCargando = false;
 
     [SerializeField] float fuerzaImpulsoJugador = 10f;
-
+    CaidaPicos caidaPicos;
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         vidaActual = vidaJefe;
         StartCoroutine(CicloDeAtaque());
+        caidaPicos = FindObjectOfType<CaidaPicos>();
     }
 
     IEnumerator CicloDeAtaque()
@@ -106,8 +107,12 @@ public class Jefe : MonoBehaviour
         }
         else if (col.transform.CompareTag("LimiteMapa"))
         {
-            Debug.Log("reproducir evento");
             estaCargando = false;
+            if (caidaPicos != null)
+            {
+                caidaPicos.IniciarEventoCaida();
+            }
+            Debug.Log("reproducir evento");
         }
     }
 }
