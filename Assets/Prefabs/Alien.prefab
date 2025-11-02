@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 8806526008969524952}
   - component: {fileID: 1485469346936313543}
   - component: {fileID: 7939433875664525600}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Alien
   m_TagString: Alien
   m_Icon: {fileID: 0}
@@ -118,7 +118,7 @@ Rigidbody2D:
     m_Bits: 0
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 4
 --- !u!114 &5630083406616560845
 MonoBehaviour:
@@ -136,6 +136,7 @@ MonoBehaviour:
   velocidadMovimiento: 3
   enemyBehaviour: {fileID: 7939433875664525600}
   centroMapa: 0
+  spriteRenderer: {fileID: 3244192639480349356}
 --- !u!114 &5942610993683338505
 MonoBehaviour:
   m_ObjectHideFlags: 0

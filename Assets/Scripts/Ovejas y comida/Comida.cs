@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Comida : MonoBehaviour
+public class Comida : MonoBehaviour, IMorir
 {
     private void Start()
     {
@@ -9,7 +9,7 @@ public class Comida : MonoBehaviour
     }
 
     // Cuando se consume o destruye
-    public void Consumir()
+    public void Morir()
     {
         if (GameManager.Instance != null)
             GameManager.Instance.EliminarComida(this);

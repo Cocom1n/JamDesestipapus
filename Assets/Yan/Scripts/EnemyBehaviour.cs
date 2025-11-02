@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using UnityEngine;
 
 public class EnemyBehaviour : Enemy
@@ -27,6 +27,16 @@ public class EnemyBehaviour : Enemy
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        if (collision.CompareTag("Comida"))
+        {
+            IMorir objetoDaniable = collision.GetComponent<IMorir>();
+            if (objetoDaniable != null)
+            {
+                objetoDaniable.Morir();
+                EmpezarAtaque();
+                Debug.Log($"Daño aplicado a {collision.gameObject.name}");
+            }
+        }
         if (collision.CompareTag("Player") || collision.CompareTag("Oveja"))
         {
             IDaniable objetoDaniable = collision.GetComponent<IDaniable>();
@@ -35,7 +45,7 @@ public class EnemyBehaviour : Enemy
             {
                 objetoDaniable.RecibirDanio(danioAlien);
                 EmpezarAtaque();
-                Debug.Log($"Da�o aplicado a {collision.gameObject.name}");
+                Debug.Log($"Daño aplicado a {collision.gameObject.name}");
             }
         }
     }
