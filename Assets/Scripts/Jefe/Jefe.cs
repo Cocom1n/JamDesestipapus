@@ -198,6 +198,7 @@ public class Jefe : MonoBehaviour, IDaniable, IMorir
         else if (col.transform.CompareTag("LimiteMapa"))
         {
             OnLlegadaALimite();
+            animator.SetTrigger("aullando");
         }
     }
 

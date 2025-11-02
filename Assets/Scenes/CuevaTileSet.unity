@@ -307,6 +307,10 @@ PrefabInstance:
       propertyPath: TextoUI
       value: 
       objectReference: {fileID: 699733171}
+    - target: {fileID: 7108745165820202446, guid: 8707e077df56ee847a954cb39dd31217, type: 3}
+      propertyPath: clipMuerte
+      value: 
+      objectReference: {fileID: 8300000, guid: fa15565ee77535447b20c0b4fd87a071, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -727,6 +731,34 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 39074143080230919, guid: b8fa17e7de2106a4a84bd2e1719cf22e, type: 3}
+      propertyPath: audioSource
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 39074143080230919, guid: b8fa17e7de2106a4a84bd2e1719cf22e, type: 3}
+      propertyPath: spriteRenderer
+      value: 
+      objectReference: {fileID: 1804766628}
+    - target: {fileID: 39074143080230919, guid: b8fa17e7de2106a4a84bd2e1719cf22e, type: 3}
+      propertyPath: sonidoEmbestida
+      value: 
+      objectReference: {fileID: 8300000, guid: 0d03814300bec7f46ba9c951c20e23a8, type: 3}
+    - target: {fileID: 39074143080230919, guid: b8fa17e7de2106a4a84bd2e1719cf22e, type: 3}
+      propertyPath: enemyLayer.m_Bits
+      value: 2176
+      objectReference: {fileID: 0}
+    - target: {fileID: 39074143080230919, guid: b8fa17e7de2106a4a84bd2e1719cf22e, type: 3}
+      propertyPath: aliadosLayer.m_Bits
+      value: 1280
+      objectReference: {fileID: 0}
+    - target: {fileID: 39074143080230919, guid: b8fa17e7de2106a4a84bd2e1719cf22e, type: 3}
+      propertyPath: fuerzaEmpujeAliadosVertical
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 39074143080230919, guid: b8fa17e7de2106a4a84bd2e1719cf22e, type: 3}
+      propertyPath: fuerzaEmpujeAliadosHorizontal
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 935705370028825769, guid: b8fa17e7de2106a4a84bd2e1719cf22e, type: 3}
       propertyPath: TextoUI
       value: 
@@ -2775,6 +2807,11 @@ CanvasRenderer:
 Transform:
   m_CorrespondingSourceObject: {fileID: 3576999281228408752, guid: 8707e077df56ee847a954cb39dd31217, type: 3}
   m_PrefabInstance: {fileID: 172402815}
+  m_PrefabAsset: {fileID: 0}
+--- !u!212 &1804766628 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 621476610490087048, guid: b8fa17e7de2106a4a84bd2e1719cf22e, type: 3}
+  m_PrefabInstance: {fileID: 429906191}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1807186378
 GameObject:

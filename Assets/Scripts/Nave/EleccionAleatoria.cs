@@ -1,4 +1,4 @@
-using DG.Tweening;
+﻿using DG.Tweening;
 using System.Collections;
 using UnityEngine;
 
@@ -14,8 +14,8 @@ public class EleccionAleatoria : MonoBehaviour, IDaniable, IMorir
     }
 
     [Header("Puntos de referencia")]
-    [SerializeField] private Transform puntoInicio; // Donde aparece el OVNI
-    [SerializeField] private Transform puntoSalida; // Donde se va despu�s de capturar
+    [SerializeField] private Transform puntoInicio;
+    [SerializeField] private Transform puntoSalida;
 
     [Header("Movimiento y tiempos")]
     [SerializeField] private float tiempoEspera = 5f;
@@ -23,18 +23,33 @@ public class EleccionAleatoria : MonoBehaviour, IDaniable, IMorir
     [SerializeField] private float duracionElevacion = 1f;
 
     [Header("Movimiento Senoidal")]
-    [SerializeField] private float amplitudSenoidal = 0.3f; // Cu�nto se mueve arriba/abajo
-    [SerializeField] private float frecuenciaSenoidal = 2f; // Qu� tan r�pido oscila
+    [SerializeField] private float amplitudSenoidal = 0.3f;
+    [SerializeField] private float frecuenciaSenoidal = 2f;
 
     [Header("Captura")]
     [SerializeField] private float alturaCaptura = 2f;
     [SerializeField] private float tiempoMaximoCaptura = 8f;
-    [SerializeField] private float distanciaRaycast = 10f; // Distancia para detectar techos
-    [SerializeField] private LayerMask layerObstaculos; // Layer de techos/obst�culos
+    [SerializeField] private float distanciaRaycast = 10f;
+    [SerializeField] private LayerMask layerObstaculos;
 
     [Header("Sistema de Vida")]
     [SerializeField] private float vidaMaxima = 100f;
     private float vidaActual;
+
+    [Header("🔊 Sistema de Sonidos")]
+    [SerializeField] private AudioSource audioSourceLevitacion;   // Para sonido constante de movimiento
+    [SerializeField] private AudioSource audioSourceAbduccion;    // Para sonido de abducción
+    [SerializeField] private AudioSource audioSourceExplosion;    // Para sonido de explosión
+
+    [Header("Clips de Audio")]
+    [SerializeField] private AudioClip clipLevitacion;
+    [SerializeField] private AudioClip clipAbduccion;
+    [SerializeField] private AudioClip clipExplosion;
+
+    [Header("Configuración de Volumen")]
+    [SerializeField] private float volumenLevitacion = 0.5f;
+    [SerializeField] private float volumenAbduccion = 0.7f;
+    [SerializeField] private float volumenExplosion = 1f;
 
     private Camera cam;
     private RecogerObjeto succionador;
@@ -42,7 +57,7 @@ public class EleccionAleatoria : MonoBehaviour, IDaniable, IMorir
     private Animator animator;
 
     private EstadoOvni estadoActual = EstadoOvni.Idle;
-    private float alturaBase; // Altura base para el movimiento senoidal
+    private float alturaBase;
     private bool enProceso = false;
     private float tiempoSenoidal = 0f;
 
@@ -54,7 +69,8 @@ public class EleccionAleatoria : MonoBehaviour, IDaniable, IMorir
         succionador = GetComponent<RecogerObjeto>();
         animator = GetComponentInChildren<Animator>();
 
-        // Si no hay puntos asignados, usar posiciones por defecto
+        ConfigurarAudioSources();
+
         if (puntoInicio == null)
         {
             GameObject inicio = new GameObject("PuntoInicio_OVNI");
@@ -75,21 +91,56 @@ public class EleccionAleatoria : MonoBehaviour, IDaniable, IMorir
         vidaActual = vidaMaxima;
     }
 
+    // 🆕 CONFIGURAR AUDIO SOURCES
+    private void ConfigurarAudioSources()
+    {
+        // Si no hay AudioSources asignados, crearlos automáticamente
+        if (audioSourceLevitacion == null)
+        {
+            audioSourceLevitacion = gameObject.AddComponent<AudioSource>();
+        }
+        if (audioSourceAbduccion == null)
+        {
+            audioSourceAbduccion = gameObject.AddComponent<AudioSource>();
+        }
+        if (audioSourceExplosion == null)
+        {
+            audioSourceExplosion = gameObject.AddComponent<AudioSource>();
+        }
+
+        // Configurar AudioSource de Levitación (loop constante)
+        audioSourceLevitacion.clip = clipLevitacion;
+        audioSourceLevitacion.loop = true;
+        audioSourceLevitacion.volume = volumenLevitacion;
+        audioSourceLevitacion.playOnAwake = false;
+
+        // Configurar AudioSource de Abducción (loop durante abducción)
+        audioSourceAbduccion.clip = clipAbduccion;
+        audioSourceAbduccion.loop = true;
+        audioSourceAbduccion.volume = volumenAbduccion;
+        audioSourceAbduccion.playOnAwake = false;
+
+        // Configurar AudioSource de Explosión (one-shot)
+        audioSourceExplosion.clip = clipExplosion;
+        audioSourceExplosion.loop = false;
+        audioSourceExplosion.volume = volumenExplosion;
+        audioSourceExplosion.playOnAwake = false;
+    }
+
     private void Update()
     {
         if (estadoActual == EstadoOvni.Dead) return;
 
-        // Aplicar movimiento senoidal cuando est� en movimiento o atacando
         if (estadoActual == EstadoOvni.MoveToTarget || estadoActual == EstadoOvni.Attacking)
         {
             AplicarMovimientoSenoidal();
         }
 
-        // Si el objetivo muri� o desapareci�
         if (objetivoActual == null && estadoActual == EstadoOvni.Attacking)
         {
             succionador.enabled = false;
             animator.SetBool("Levantando", false);
+            DetenerSonidoAbduccion(); // 🆕
             CambiarEstado(EstadoOvni.Idle);
         }
 
@@ -114,6 +165,61 @@ public class EleccionAleatoria : MonoBehaviour, IDaniable, IMorir
     }
 
     // -------------------
+    // 🔊 MÉTODOS DE SONIDO
+    // -------------------
+
+    private void ReproducirSonidoLevitacion()
+    {
+        if (audioSourceLevitacion != null && clipLevitacion != null && !audioSourceLevitacion.isPlaying)
+        {
+            audioSourceLevitacion.Play();
+            Debug.Log("🎵 Sonido de levitación iniciado");
+        }
+    }
+
+    private void DetenerSonidoLevitacion()
+    {
+        if (audioSourceLevitacion != null && audioSourceLevitacion.isPlaying)
+        {
+            audioSourceLevitacion.Stop();
+            Debug.Log("🔇 Sonido de levitación detenido");
+        }
+    }
+
+    private void ReproducirSonidoAbduccion()
+    {
+        if (audioSourceAbduccion != null && clipAbduccion != null && !audioSourceAbduccion.isPlaying)
+        {
+            audioSourceAbduccion.Play();
+            Debug.Log("🎵 Sonido de abducción iniciado");
+        }
+    }
+
+    private void DetenerSonidoAbduccion()
+    {
+        if (audioSourceAbduccion != null && audioSourceAbduccion.isPlaying)
+        {
+            audioSourceAbduccion.Stop();
+            Debug.Log("🔇 Sonido de abducción detenido");
+        }
+    }
+
+    private void ReproducirSonidoExplosion()
+    {
+        if (audioSourceExplosion != null && clipExplosion != null)
+        {
+            audioSourceExplosion.Play();
+            Debug.Log("💥 Sonido de explosión reproducido");
+        }
+    }
+
+    private void DetenerTodosLosSonidos()
+    {
+        DetenerSonidoLevitacion();
+        DetenerSonidoAbduccion();
+    }
+
+    // -------------------
     // MOVIMIENTO SENOIDAL
     // -------------------
 
@@ -128,12 +234,11 @@ public class EleccionAleatoria : MonoBehaviour, IDaniable, IMorir
     }
 
     // -------------------
-    // DETECCI�N DE TECHO
+    // DETECCIÓN DE TECHO
     // -------------------
 
     private bool TieneEspacioLibre(Vector3 posicionOveja)
     {
-        // Raycast desde la oveja hacia arriba
         RaycastHit2D hit = Physics2D.Raycast(
             posicionOveja,
             Vector2.up,
@@ -141,10 +246,8 @@ public class EleccionAleatoria : MonoBehaviour, IDaniable, IMorir
             layerObstaculos
         );
 
-        // Si NO hay obst�culo, hay espacio libre
         bool espacioLibre = hit.collider == null;
 
-        // Debug visual
         if (espacioLibre)
             Debug.DrawRay(posicionOveja, Vector2.up * distanciaRaycast, Color.green, 0.5f);
         else
@@ -163,21 +266,20 @@ public class EleccionAleatoria : MonoBehaviour, IDaniable, IMorir
         succionador.enabled = false;
         animator.SetBool("Levantando", false);
 
-        // Volver al punto de inicio
+        DetenerTodosLosSonidos(); // 🆕 Detener sonidos al entrar en Idle
+
         transform.position = puntoInicio.position;
         alturaBase = puntoInicio.position.y;
         tiempoSenoidal = 0f;
 
         yield return new WaitForSeconds(tiempoEspera);
 
-        // Buscar ovejas v�lidas (con espacio libre)
         var ovejas = GameManager.Instance.GetOvejasVivas();
         if (ovejas.Count > 0)
         {
-            // Intentar encontrar una oveja sin techo
             Oveja ovejaSeleccionada = null;
             int intentos = 0;
-            int maxIntentos = ovejas.Count * 2; // Revisar varias veces
+            int maxIntentos = ovejas.Count * 2;
 
             while (ovejaSeleccionada == null && intentos < maxIntentos)
             {
@@ -200,7 +302,6 @@ public class EleccionAleatoria : MonoBehaviour, IDaniable, IMorir
             else
             {
                 Debug.Log("No hay ovejas con espacio libre para abducir");
-                // Reintentar despu�s
                 enProceso = false;
             }
         }
@@ -212,6 +313,8 @@ public class EleccionAleatoria : MonoBehaviour, IDaniable, IMorir
     {
         enProceso = true;
 
+        ReproducirSonidoLevitacion(); // 🆕 Iniciar sonido de levitación
+
         if (objetivoActual == null)
         {
             CambiarEstado(EstadoOvni.Idle);
@@ -219,10 +322,9 @@ public class EleccionAleatoria : MonoBehaviour, IDaniable, IMorir
             yield break;
         }
 
-        // Verificar de nuevo que sigue teniendo espacio libre
         if (!TieneEspacioLibre(objetivoActual.transform.position))
         {
-            Debug.Log("El objetivo entr� a una zona con techo");
+            Debug.Log("El objetivo entró a una zona con techo");
             objetivoActual = null;
             CambiarEstado(EstadoOvni.Idle);
             enProceso = false;
@@ -235,20 +337,16 @@ public class EleccionAleatoria : MonoBehaviour, IDaniable, IMorir
             transform.position.z
         );
 
-        // Mover sin DOTween para mantener control del senoidal
         float tiempoTranscurrido = 0f;
         Vector3 inicio = transform.position;
-        inicio.y = alturaBase; // Mantener altura base
+        inicio.y = alturaBase;
 
         while (tiempoTranscurrido < duracionMovimiento)
         {
             tiempoTranscurrido += Time.deltaTime;
             float t = tiempoTranscurrido / duracionMovimiento;
 
-            // Movimiento horizontal con ease
             float x = Mathf.Lerp(inicio.x, destino.x, Mathf.SmoothStep(0, 1, t));
-
-            // Actualizar altura base (sin senoidal, eso se aplica en Update)
             alturaBase = Mathf.Lerp(inicio.y, destino.y, t);
 
             Vector3 nuevaPos = new Vector3(x, alturaBase, transform.position.z);
@@ -275,20 +373,21 @@ public class EleccionAleatoria : MonoBehaviour, IDaniable, IMorir
         animator.SetBool("Levantando", true);
         succionador.enabled = true;
 
+        ReproducirSonidoAbduccion(); // 🆕 Iniciar sonido de abducción
+        // El sonido de levitación sigue sonando
+
         float tiempoTranscurrido = 0f;
 
         while (objetivoActual != null && tiempoTranscurrido < tiempoMaximoCaptura)
         {
             tiempoTranscurrido += Time.deltaTime;
 
-            // Verificar si entr� a una zona con techo
             if (!TieneEspacioLibre(objetivoActual.transform.position))
             {
-                Debug.Log("�La oveja se refugi� bajo un techo!");
+                Debug.Log("¡La oveja se refugió bajo un techo!");
                 break;
             }
 
-            // Verificar altura de captura
             if (objetivoActual.transform.position.y >= transform.position.y - alturaCaptura)
             {
                 CapturarOveja();
@@ -296,7 +395,6 @@ public class EleccionAleatoria : MonoBehaviour, IDaniable, IMorir
                 yield break;
             }
 
-            // Reposicionar si pierde detecci�n
             if (!succionador.Detectando)
             {
                 alturaBase = transform.position.y;
@@ -313,8 +411,8 @@ public class EleccionAleatoria : MonoBehaviour, IDaniable, IMorir
 
         succionador.enabled = false;
         animator.SetBool("Levantando", false);
+        DetenerSonidoAbduccion(); // 🆕 Detener abducción si falló
 
-        // Si no captur�, reintentar
         if (objetivoActual != null)
         {
             CambiarEstado(EstadoOvni.MoveToTarget);
@@ -331,19 +429,24 @@ public class EleccionAleatoria : MonoBehaviour, IDaniable, IMorir
     {
         if (objetivoActual == null) return;
 
-        Debug.Log($"�Oveja capturada por el OVNI!");
+        Debug.Log($"¡Oveja capturada por el OVNI!");
 
         objetivoActual.Morir();
         objetivoActual = null;
 
         succionador.enabled = false;
         animator.SetBool("Levantando", false);
+        DetenerSonidoAbduccion(); // 🆕 Detener sonido de abducción
+
         CambiarEstado(EstadoOvni.Retreating);
     }
 
     private IEnumerator EstadoRetirada()
     {
         enProceso = true;
+
+        // El sonido de levitación sigue mientras se retira
+        ReproducirSonidoLevitacion();
 
         Vector3 destino = puntoSalida.position;
 
@@ -356,7 +459,7 @@ public class EleccionAleatoria : MonoBehaviour, IDaniable, IMorir
     }
 
     // -------------------
-    // M�TODOS AUXILIARES
+    // MÉTODOS AUXILIARES
     // -------------------
 
     public void ForzarRetirada()
@@ -366,6 +469,7 @@ public class EleccionAleatoria : MonoBehaviour, IDaniable, IMorir
         StopAllCoroutines();
         succionador.enabled = false;
         animator.SetBool("Levantando", false);
+        DetenerSonidoAbduccion(); // 🆕
         enProceso = false;
         CambiarEstado(EstadoOvni.Retreating);
         StartCoroutine(EstadoRetirada());
@@ -379,11 +483,17 @@ public class EleccionAleatoria : MonoBehaviour, IDaniable, IMorir
     public void Morir()
     {
         if (estadoActual == EstadoOvni.Dead) return;
+
         StopAllCoroutines();
         succionador.enabled = false;
         animator.SetTrigger("Morir");
         estadoActual = EstadoOvni.Dead;
         transform.DOKill();
+
+        // 🆕 SONIDOS AL MORIR
+        DetenerTodosLosSonidos();
+        ReproducirSonidoExplosion();
+
         Destroy(gameObject, 2f);
     }
 
@@ -392,15 +502,23 @@ public class EleccionAleatoria : MonoBehaviour, IDaniable, IMorir
         if (estadoActual == EstadoOvni.Dead) return;
 
         vidaActual -= cantidad;
-        Debug.Log($"OVNI recibi� {cantidad} de da�o. Vida restante: {vidaActual}");
+        Debug.Log($"OVNI recibió {cantidad} de daño. Vida restante: {vidaActual}");
 
-        // Efecto visual opcional (parpadeo)
-         GetComponentInChildren<SpriteRenderer>()?.DOColor(Color.red, 0.1f).SetLoops(2, LoopType.Yoyo);
+        GetComponentInChildren<SpriteRenderer>()?.DOColor(Color.red, 0.1f).SetLoops(2, LoopType.Yoyo);
 
         if (vidaActual <= 0)
         {
             Morir();
         }
+    }
+
+    // -------------------
+    // CLEANUP
+    // -------------------
+
+    private void OnDestroy()
+    {
+        DetenerTodosLosSonidos();
     }
 
     // -------------------

@@ -128,6 +128,11 @@ public class GameManager : MonoBehaviour
 
         DuplicarEntidades();
         ActualizarContadorOvejas();
+        //  LLAMAR AL MUSIC MANAGER
+        if (MusicManager.Instance != null)
+        {
+            MusicManager.Instance.IniciarMusicaDia();
+        }
     }
 
     void IniciarNoche()
@@ -141,7 +146,10 @@ public class GameManager : MonoBehaviour
         luna.transform.position = new Vector3(10f, 15f, 0f);
         sol.transform.position = new Vector3(-25f, -17f, 0f);
 
-        prefabOvniAlien.SetActive(true);
+        if (prefabOvniAlien != null)
+        {
+            prefabOvniAlien.SetActive(true);
+        }
 
         foreach (Spawner spawner in spawners)
         {
@@ -149,6 +157,11 @@ public class GameManager : MonoBehaviour
             {
                 spawner.IniciarSpawn();
             }
+        }
+        //  LLAMAR AL MUSIC MANAGER
+        if (MusicManager.Instance != null)
+        {
+            MusicManager.Instance.IniciarMusicaNoche();
         }
     }
 

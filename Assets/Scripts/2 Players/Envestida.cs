@@ -17,8 +17,8 @@ public class Envestida : MonoBehaviour
     [SerializeField] private float stunDuration = 0.25f;
 
     [Header("Empuje a Aliados (Player/Oveja)")]
-    [SerializeField] private LayerMask aliadosLayer; // 🆕 Layer para Player y Oveja
-    [SerializeField] private float fuerzaEmpujeAliadosHorizontal = 10f; // 🆕 Empuje a aliados
+    [SerializeField] private LayerMask aliadosLayer;
+    [SerializeField] private float fuerzaEmpujeAliadosHorizontal = 10f;
     [SerializeField] private float fuerzaEmpujeAliadosVertical = 5f;
 
     [Header("Invencibilidad")]
@@ -30,6 +30,12 @@ public class Envestida : MonoBehaviour
 
     [Header("Referencias (Opcional)")]
     [SerializeField] private SpriteRenderer spriteRenderer;
+
+    [Header("🔊 Sistema de Sonidos")]
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioClip sonidoEmbestida;
+    [SerializeField] private float volumenEmbestida = 0.7f;
+    [SerializeField] private float volumenImpacto = 0.5f;
 
     private Rigidbody2D rb;
     private bool isDashing = false;
@@ -44,7 +50,7 @@ public class Envestida : MonoBehaviour
     private Coroutine invencibilidadCoroutine;
 
     private HashSet<int> enemigosGolpeados = new HashSet<int>();
-    private HashSet<int> aliadosEmpujados = new HashSet<int>(); // 🆕 Para evitar empujar múltiples veces
+    private HashSet<int> aliadosEmpujados = new HashSet<int>();
 
     void Start()
     {
@@ -57,6 +63,20 @@ public class Envestida : MonoBehaviour
 
         if (spriteRenderer == null)
             Debug.LogWarning("No se encontró SpriteRenderer en " + gameObject.name);
+
+        // 🆕 Configurar AudioSource si no está asignado
+        if (audioSource == null)
+        {
+            audioSource = gameObject.GetComponent<AudioSource>();
+            if (audioSource == null)
+            {
+                audioSource = gameObject.AddComponent<AudioSource>();
+            }
+        }
+
+        // Configurar AudioSource
+        audioSource.playOnAwake = false;
+        audioSource.loop = false;
 
         playerLayer = LayerMask.NameToLayer(playerLayerName);
         enemyLayerInt = LayerMask.NameToLayer(enemyLayerName);
@@ -90,7 +110,7 @@ public class Envestida : MonoBehaviour
             tiempoRestante -= Time.fixedDeltaTime;
 
             DetectarYDañarEnemigos();
-            DetectarYEmpujarAliados(); // 🆕 Detectar y empujar aliados
+            DetectarYEmpujarAliados();
 
             if (tiempoRestante <= 0f)
                 Detenerse();
@@ -108,7 +128,7 @@ public class Envestida : MonoBehaviour
             playerMovement.enabled = false;
 
         enemigosGolpeados.Clear();
-        aliadosEmpujados.Clear(); // 🆕 Limpiar tracking de aliados
+        aliadosEmpujados.Clear();
 
         if (invencibilidadCoroutine != null)
             StopCoroutine(invencibilidadCoroutine);
@@ -119,6 +139,9 @@ public class Envestida : MonoBehaviour
 
         if (animatorController != null)
             animatorController.SetTrigger("Embestida");
+
+        // 🆕 REPRODUCIR SONIDO DE EMBESTIDA
+        ReproducirSonidoEmbestida();
     }
 
     void Detenerse()
@@ -149,6 +172,17 @@ public class Envestida : MonoBehaviour
         spriteRenderer.flipX = direccion < 0;
     }
 
+    // 🆕 MÉTODOS DE SONIDO
+    void ReproducirSonidoEmbestida()
+    {
+        if (audioSource != null && sonidoEmbestida != null)
+        {
+            audioSource.PlayOneShot(sonidoEmbestida, volumenEmbestida);
+            Debug.Log("🎵 Sonido de embestida reproducido");
+        }
+    }
+
+
     void DetectarYDañarEnemigos()
     {
         Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, radioDeteccion, enemyLayer);
@@ -161,6 +195,7 @@ public class Envestida : MonoBehaviour
 
             enemigosGolpeados.Add(id);
             Debug.Log("💥 ¡Golpeó a enemigo: " + hit.gameObject.name + "!");
+
 
             Rigidbody2D enemyRb = hit.GetComponent<Rigidbody2D>();
             if (enemyRb != null)
@@ -194,15 +229,12 @@ public class Envestida : MonoBehaviour
         }
     }
 
-    // 🆕 NUEVA FUNCIÓN: Detectar y empujar Player/Oveja
     void DetectarYEmpujarAliados()
     {
-        // Detectar objetos en el layer de aliados (Player y Oveja)
         Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, radioDeteccion, aliadosLayer);
 
         foreach (Collider2D hit in hits)
         {
-            // Ignorar al propio perro (el que está embistiendo)
             if (hit.gameObject == gameObject)
                 continue;
 
@@ -213,10 +245,10 @@ public class Envestida : MonoBehaviour
             aliadosEmpujados.Add(id);
             Debug.Log("🐑 ¡Empujó a aliado: " + hit.gameObject.name + "!");
 
+
             Rigidbody2D aliadoRb = hit.GetComponent<Rigidbody2D>();
             if (aliadoRb != null)
             {
-                // Empuje más suave para aliados
                 Vector2 empuje = new Vector2(
                     direccionEmbestida * fuerzaEmpujeAliadosHorizontal,
                     fuerzaEmpujeAliadosVertical

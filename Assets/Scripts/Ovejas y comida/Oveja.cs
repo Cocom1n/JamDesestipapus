@@ -1,5 +1,5 @@
-using System.Collections;
 using UnityEngine;
+using System.Collections;
 
 public class Oveja : MonoBehaviour, IMorir, IDaniable, IDesactivarMovimiento
 {
@@ -16,14 +16,40 @@ public class Oveja : MonoBehaviour, IMorir, IDaniable, IDesactivarMovimiento
     private float direccion;
     private bool aturdido = false;
     private Coroutine reenableCoroutine;
+
+    [Header("Audio - Oveja")]
+    [SerializeField] private AudioClip clipAparecer;        // sonido al aparecer
+    [SerializeField] private AudioClip clipAbduccion;      // sonido mientras la abducen (loop recomendado)
+    [SerializeField] private AudioClip clipRecibirDanio;   // sonido al recibir daño / morir
+    [SerializeField][Range(0f, 1f)] private float volumenSFX = 1f;
+
+    private AudioSource sfxSource;
+    private SpriteRenderer spriteRenderer;
+
     private void Start()
     {
         if (GameManager.Instance != null)
             GameManager.Instance.RegistrarOveja(this);
+
         vidaActual = vidaMax;
         animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
         animator.SetTrigger("Aparecer");
+        spriteRenderer = GetComponent<SpriteRenderer>();
+
+        // Obtener o crear AudioSource para SFX
+        sfxSource = GetComponent<AudioSource>();
+        if (sfxSource == null)
+        {
+            sfxSource = gameObject.AddComponent<AudioSource>();
+            sfxSource.playOnAwake = false;
+            sfxSource.loop = false;
+        }
+        sfxSource.volume = volumenSFX;
+
+        // Reproducir sonido de aparecer (una vez)
+        if (clipAparecer != null)
+            sfxSource.PlayOneShot(clipAparecer, volumenSFX);
     }
 
     private void Update()
@@ -79,20 +105,53 @@ public class Oveja : MonoBehaviour, IMorir, IDaniable, IDesactivarMovimiento
     {
         estaAbducida = true;
         animator.SetBool("Abducida", true);
-        //Debug.Log("Oveja siendo abducida!");
+
+        // Iniciar sonido de abducción en loop
+        if (clipAbduccion != null && sfxSource != null)
+        {
+            sfxSource.clip = clipAbduccion;
+            sfxSource.loop = true;
+            sfxSource.Play();
+        }
     }
 
     private void DesactivarAnimacionAbduccion()
     {
         estaAbducida = false;
         animator.SetBool("Abducida", false);
-        //Debug.Log("Oveja ya no está siendo abducida");
+
+        // Parar sonido de abducción
+        if (sfxSource != null && sfxSource.clip == clipAbduccion)
+        {
+            sfxSource.Stop();
+            sfxSource.clip = null;
+            sfxSource.loop = false;
+        }
     }
 
     public void Morir()
     {
         if (GameManager.Instance != null)
             GameManager.Instance.EliminarOveja(this);
+
+        // Reproducir sonido de muerte y destruir al terminar el clip
+        if (clipRecibirDanio != null && sfxSource != null)
+        {
+            sfxSource.loop = false;
+            sfxSource.Stop(); // parar cualquier loop (p.ej. abducción)
+            sfxSource.PlayOneShot(clipRecibirDanio, volumenSFX);
+            spriteRenderer.enabled = false; // ocultar sprite inmediatamente
+            StartCoroutine(DelayedDestroy(clipRecibirDanio.length));
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
+
+    private IEnumerator DelayedDestroy(float delay)
+    {
+        yield return new WaitForSeconds(delay);
         Destroy(gameObject);
     }
 
@@ -105,6 +164,13 @@ public class Oveja : MonoBehaviour, IMorir, IDaniable, IDesactivarMovimiento
     public void RecibirDanio(float daño)
     {
         vidaActual -= daño;
+
+        // Reproducir sonido de recibir daño (no interrumpe la abducción loop si existe)
+        if (clipRecibirDanio != null && sfxSource != null)
+        {
+            sfxSource.PlayOneShot(clipRecibirDanio, volumenSFX);
+        }
+
         if (vidaActual <= 0)
         {
             Morir();
