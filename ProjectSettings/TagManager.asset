@@ -6,7 +6,7 @@ TagManager:
   tags:
   - Alien
   - Oveja
-  - LimiteMapa
+  - Piso
   layers:
   - Default
   - TransparentFX
@@ -17,8 +17,8 @@ TagManager:
   - Player
   - Enemy
   - Oveja
-  - 
-  - 
+  - Bala
+  - Zanahoria
   - 
   - 
   - 

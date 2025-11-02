@@ -7,20 +7,49 @@ public class Spawner : MonoBehaviour
     [SerializeField] float alienIntervalo;
     [SerializeField] int alienMax;
     [SerializeField] int cuantosAliens;
-    [SerializeField] Coroutine spawnRutina;
+    private Coroutine spawnRutina;
+    private bool estaSpawneando = false;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        spawnRutina = StartCoroutine(spawnAlien(alienIntervalo, alien));
+        
     }
-    private IEnumerator spawnAlien(float interval, GameObject Alien)
+    
+    public void IniciarSpawn()
     {
-            while (cuantosAliens < alienMax)
-            {
-                yield return new WaitForSeconds(interval);
-                Instantiate(Alien);
-                cuantosAliens++;
-            }
-
+        if (!estaSpawneando)
+        {
+            cuantosAliens = 0;
+            estaSpawneando=true;
+            spawnRutina = StartCoroutine(spawnAlien(alienIntervalo, alien));
         }
     }
+
+    public void DetenerSpawn()
+    {
+        if (estaSpawneando && spawnRutina != null)
+        {
+            StopCoroutine(spawnAlien(alienIntervalo, alien));
+            estaSpawneando = false;
+        }
+    }
+
+    private IEnumerator spawnAlien(float interval, GameObject Alien)
+    {
+        while (cuantosAliens < alienMax)
+        {
+            yield return new WaitForSeconds(interval);
+            Instantiate(Alien, transform.position, transform.rotation);
+            cuantosAliens++;
+        }
+    }
+
+    public void DestruAliensRestantes()
+    {
+        GameObject[] aliens = GameObject.FindGameObjectsWithTag("Alien");
+        foreach (GameObject alien in aliens)
+        {
+            Destroy(alien);
+        }
+    }
+}

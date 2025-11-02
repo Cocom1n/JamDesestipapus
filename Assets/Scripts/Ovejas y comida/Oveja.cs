@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Oveja : MonoBehaviour, IMorir
+public class Oveja : MonoBehaviour, IMorir, IDaniable
 {
     Animator animator;
     Rigidbody2D rb;
@@ -8,14 +8,15 @@ public class Oveja : MonoBehaviour, IMorir
     [Header("Detección de Abducción")]
     [SerializeField] private float velocidadMinimaAbduccion = 1f; // Velocidad hacia arriba para activar animación
     [SerializeField] private float velocidadMinimaDesactivar = 0.5f; // Velocidad mínima para mantener la animación
-
+    [SerializeField] private float vidaMax;
+    private float vidaActual;
     private bool estaAbducida = false;
 
     private void Start()
     {
         if (GameManager.Instance != null)
             GameManager.Instance.RegistrarOveja(this);
-
+        vidaActual = vidaMax;
         animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
         animator.SetTrigger("Aparecer");
@@ -42,14 +43,14 @@ public class Oveja : MonoBehaviour, IMorir
     {
         estaAbducida = true;
         animator.SetBool("Abducida", true);
-        Debug.Log("Oveja siendo abducida!");
+        //Debug.Log("Oveja siendo abducida!");
     }
 
     private void DesactivarAnimacionAbduccion()
     {
         estaAbducida = false;
         animator.SetBool("Abducida", false);
-        Debug.Log("Oveja ya no está siendo abducida");
+        //Debug.Log("Oveja ya no está siendo abducida");
     }
 
     public void Morir()
@@ -63,5 +64,14 @@ public class Oveja : MonoBehaviour, IMorir
     public void Abducida()
     {
         ActivarAnimacionAbduccion();
+    }
+
+    public void RecibirDanio(float daño)
+    {
+        vidaActual -= daño;
+        if (vidaActual <= 0)
+        {
+            Morir();
+        }
     }
 }
