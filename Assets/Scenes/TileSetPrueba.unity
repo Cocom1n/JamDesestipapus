@@ -946,6 +946,11 @@ Animator:
   m_CorrespondingSourceObject: {fileID: 6466975267910198103, guid: 8707e077df56ee847a954cb39dd31217, type: 3}
   m_PrefabInstance: {fileID: 515620823}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &549251552 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7589104692693651987, guid: ada51900df420f742bbeb42ee445f029, type: 3}
+  m_PrefabInstance: {fileID: 1526352689}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &588039510
 GameObject:
   m_ObjectHideFlags: 0
@@ -73349,7 +73354,7 @@ MonoBehaviour:
   panelDerrota: {fileID: 1807186378}
   prefabOveja: {fileID: 6439691195864189921, guid: c5a57572ddf38844a8d080ba9c16714c, type: 3}
   prefabComida: {fileID: 7923342209280178188, guid: 2a1b9d01143e34b49a2a9807d84f23e0, type: 3}
-  prefabOvniAlien: {fileID: 0}
+  prefabOvniAlien: {fileID: 549251552}
   spawners:
   - {fileID: 718987775}
   - {fileID: 490623053}
