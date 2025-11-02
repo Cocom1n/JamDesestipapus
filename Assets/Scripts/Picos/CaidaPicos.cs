@@ -1,15 +1,17 @@
 ﻿using System.Collections;
 using UnityEngine;
 
-public class CaidaPicos : MonoBehaviour
+public class CaidaPicos : MonoBehaviour, IDaniable
 {
     [SerializeField] GameObject[] picos;
     [SerializeField] float tiempoEntrePicos = 0.2f;
     [SerializeField] float tiempoDeCaida = 0.5f;
+    [SerializeField] float gravedadPicos = 0.75f;
+    [SerializeField] float rangoX = 2f;
+    [SerializeField] float danioPicos;
+
     bool ordenAleatorio = true;
     bool posicionesAleatoriasX = true;
-    [SerializeField] float rangoX = 2f;
-
     bool caidaEnProgreso = false;
     Vector3[] posicionesOriginales;
 
@@ -26,7 +28,9 @@ public class CaidaPicos : MonoBehaviour
     public void ActivarCaidaPicos()
     {
         if (!caidaEnProgreso)
+        {
             StartCoroutine(CaerYVolver());
+        }   
     }
 
     IEnumerator CaerYVolver()
@@ -53,6 +57,7 @@ public class CaidaPicos : MonoBehaviour
             var rb = picos[idx].GetComponent<Rigidbody2D>();
             if (rb != null)
                 rb.bodyType = RigidbodyType2D.Dynamic;
+                rb.gravityScale = gravedadPicos;
 
             yield return new WaitForSeconds(tiempoEntrePicos);
         }
@@ -78,13 +83,19 @@ public class CaidaPicos : MonoBehaviour
             for (int i = 0; i < picos.Length; i++)
             {
                 if (picos[i] == null) continue;
-
                 Vector3 original = posicionesOriginales[i];
                 float randomX = original.x + Random.Range(-rangoX, rangoX);
                 picos[i].transform.position = new Vector3(randomX, original.y, original.z);
             }
         }
-
         caidaEnProgreso = false;
+    }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        RecibirDanio(danioPicos);
+    }
+    public void RecibirDanio(float cantidad)
+    {
+        /*Quitar vida al jugador*/
     }
 }

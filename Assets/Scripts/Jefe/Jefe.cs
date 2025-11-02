@@ -21,12 +21,14 @@ public class Jefe : MonoBehaviour
 
     [SerializeField] float fuerzaImpulsoJugador = 10f;
     CaidaPicos caidaPicos;
+    AudioSource audioSource;
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         vidaActual = vidaJefe;
         StartCoroutine(CicloDeAtaque());
         caidaPicos = FindObjectOfType<CaidaPicos>();
+        audioSource = GetComponent<AudioSource>();
     }
 
     IEnumerator CicloDeAtaque()
@@ -111,6 +113,7 @@ public class Jefe : MonoBehaviour
             if (caidaPicos != null)
             {
                 caidaPicos.ActivarCaidaPicos();
+                audioSource.Play();
             }
             Debug.Log("reproducir evento");
         }
