@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class EnemyBehaviour : MonoBehaviour
+public class EnemyBehaviour : Enemy
 {
     [SerializeField] private float rangoAtaque;
     //[SerializeField] private Coroutine ataqueRutina;

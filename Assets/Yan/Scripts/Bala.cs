@@ -30,9 +30,14 @@ public class Bala : MonoBehaviour
                 Destroy(gameObject);
             }
         }
+        if (collision.CompareTag("Piso"))
+        {
+            Destroy(gameObject);
+        }
     }
 
     // Alternativa usando OnCollisionEnter2D si usas colliders normales
+    /*
     private void OnCollisionEnter2D(Collision2D collision)
     {
         IDaniable objetoDaniable = collision.gameObject.GetComponent<IDaniable>();
@@ -47,5 +52,5 @@ public class Bala : MonoBehaviour
         {
             Destroy(gameObject);
         }
-    }
+    }*/
 }

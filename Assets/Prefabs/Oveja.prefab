@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: -2163555627517903310}
   - component: {fileID: -6091645476246320920}
   - component: {fileID: 4724612017797024003}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Oveja
   m_TagString: Oveja
   m_Icon: {fileID: 6519382022992737161, guid: 0000000000000000d000000000000000, type: 0}
@@ -176,6 +176,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f814dee82b697b44a383307548cb0c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  velocidadMinimaAbduccion: 1
+  velocidadMinimaDesactivar: 0.5
+  vidaMax: 20
 --- !u!95 &4724612017797024003
 Animator:
   serializedVersion: 7
