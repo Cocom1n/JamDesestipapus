@@ -1,6 +1,7 @@
+using System.Collections;
 using UnityEngine;
 
-public class Oveja : MonoBehaviour, IMorir, IDaniable
+public class Oveja : MonoBehaviour, IMorir, IDaniable, IDesactivarMovimiento
 {
     Animator animator;
     Rigidbody2D rb;
@@ -12,6 +13,9 @@ public class Oveja : MonoBehaviour, IMorir, IDaniable
     private float vidaActual;
     private bool estaAbducida = false;
 
+    private float direccion;
+    private bool aturdido = false;
+    private Coroutine reenableCoroutine;
     private void Start()
     {
         if (GameManager.Instance != null)
@@ -37,6 +41,38 @@ public class Oveja : MonoBehaviour, IMorir, IDaniable
                 DesactivarAnimacionAbduccion();
             }
         }
+    }
+
+    // --- IDesactivarMovimiento ---
+    public void DesactivarMovimiento(float duracion)
+    {
+        // cancelar reenable previo
+        if (reenableCoroutine != null)
+        {
+            StopCoroutine(reenableCoroutine);
+            reenableCoroutine = null;
+        }
+
+        aturdido = true;
+        reenableCoroutine = StartCoroutine(ReactivarDespues(duracion));
+    }
+
+    public void ReactivarMovimiento()
+    {
+        if (reenableCoroutine != null)
+        {
+            StopCoroutine(reenableCoroutine);
+            reenableCoroutine = null;
+        }
+
+        aturdido = false;
+    }
+
+    private IEnumerator ReactivarDespues(float segundos)
+    {
+        yield return new WaitForSeconds(segundos);
+        aturdido = false;
+        reenableCoroutine = null;
     }
 
     private void ActivarAnimacionAbduccion()

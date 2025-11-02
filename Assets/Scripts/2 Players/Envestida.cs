@@ -1,5 +1,4 @@
-﻿
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -13,12 +12,17 @@ public class Envestida : MonoBehaviour
     [SerializeField] private LayerMask enemyLayer;
 
     [Header("Empuje de Enemigos")]
-    [SerializeField] private float fuerzaEmpujeHorizontal = 15f; // ⭐ Fuerza lateral
-    [SerializeField] private float fuerzaEmpujeVertical = 2f;    // ⭐ Fuerza hacia arriba (menor)
-    [SerializeField] private float stunDuration = 0.25f;         // Tiempo que deshabilita movimiento del enemigo
+    [SerializeField] private float fuerzaEmpujeHorizontal = 15f;
+    [SerializeField] private float fuerzaEmpujeVertical = 2f;
+    [SerializeField] private float stunDuration = 0.25f;
+
+    [Header("Empuje a Aliados (Player/Oveja)")]
+    [SerializeField] private LayerMask aliadosLayer; // 🆕 Layer para Player y Oveja
+    [SerializeField] private float fuerzaEmpujeAliadosHorizontal = 10f; // 🆕 Empuje a aliados
+    [SerializeField] private float fuerzaEmpujeAliadosVertical = 5f;
 
     [Header("Invencibilidad")]
-    [SerializeField] private float duracionInvencibilidad = 0.5f; // ⭐ Tiempo extra sin colisión
+    [SerializeField] private float duracionInvencibilidad = 0.5f;
 
     [Header("Layers para Colisión")]
     [SerializeField] private string playerLayerName = "Player";
@@ -39,10 +43,8 @@ public class Envestida : MonoBehaviour
     private int enemyLayerInt;
     private Coroutine invencibilidadCoroutine;
 
-    // Evitar múltiples aplicaciones en la misma embestida
     private HashSet<int> enemigosGolpeados = new HashSet<int>();
-    // Para controlar coroutines de reactivación por enemigo
-    private Dictionary<int, Coroutine> reenableCoroutines = new Dictionary<int, Coroutine>();
+    private HashSet<int> aliadosEmpujados = new HashSet<int>(); // 🆕 Para evitar empujar múltiples veces
 
     void Start()
     {
@@ -86,7 +88,9 @@ public class Envestida : MonoBehaviour
         {
             rb.linearVelocity = new Vector2(direccionEmbestida * velocidad, rb.linearVelocity.y);
             tiempoRestante -= Time.fixedDeltaTime;
+
             DetectarYDañarEnemigos();
+            DetectarYEmpujarAliados(); // 🆕 Detectar y empujar aliados
 
             if (tiempoRestante <= 0f)
                 Detenerse();
@@ -103,8 +107,8 @@ public class Envestida : MonoBehaviour
         if (playerMovement != null)
             playerMovement.enabled = false;
 
-        // Limpiar tracking de esta embestida
         enemigosGolpeados.Clear();
+        aliadosEmpujados.Clear(); // 🆕 Limpiar tracking de aliados
 
         if (invencibilidadCoroutine != null)
             StopCoroutine(invencibilidadCoroutine);
@@ -124,8 +128,6 @@ public class Envestida : MonoBehaviour
 
         if (playerMovement != null)
             playerMovement.enabled = true;
-
-        // NO reactivamos colisiones aquí; la coroutine lo hace
     }
 
     IEnumerator InvencibilidadTemporal()
@@ -155,22 +157,20 @@ public class Envestida : MonoBehaviour
         {
             int id = hit.gameObject.GetInstanceID();
             if (enemigosGolpeados.Contains(id))
-                continue; // ya golpeado en esta embestida
+                continue;
 
             enemigosGolpeados.Add(id);
-
-            Debug.Log("💥 ¡Golpeó a: " + hit.gameObject.name + "!");
+            Debug.Log("💥 ¡Golpeó a enemigo: " + hit.gameObject.name + "!");
 
             Rigidbody2D enemyRb = hit.GetComponent<Rigidbody2D>();
             if (enemyRb != null)
             {
-                Vector2 desired = new Vector2(direccionEmbestida * fuerzaEmpujeHorizontal, fuerzaEmpujeVertical);
+                Vector2 empuje = new Vector2(
+                    direccionEmbestida * fuerzaEmpujeHorizontal,
+                    fuerzaEmpujeVertical
+                );
+                enemyRb.linearVelocity = empuje;
 
-                // Aplicar velocity directamente para efecto inmediato
-                enemyRb.linearVelocity = desired;
-                Debug.Log($"Velocidad aplicada al enemigo: {desired}");
-
-                // Usar la interfaz si está presente
                 IDesactivarMovimiento mover = hit.GetComponent<IDesactivarMovimiento>();
                 if (mover != null)
                 {
@@ -178,7 +178,6 @@ public class Envestida : MonoBehaviour
                 }
                 else
                 {
-                    // fallback: si no implementa la interfaz, intentar buscar EnemyMove y desactivar (retrocompatibilidad)
                     EnemyMove em = hit.GetComponent<EnemyMove>();
                     if (em != null)
                     {
@@ -186,12 +185,7 @@ public class Envestida : MonoBehaviour
                     }
                 }
             }
-            else
-            {
-                Debug.LogWarning("No Rigidbody2D en enemigo: " + hit.gameObject.name);
-            }
 
-            // Aplicar daño (una sola vez por embestida)
             IDaniable daniable = hit.GetComponent<IDaniable>();
             if (daniable != null)
             {
@@ -200,17 +194,38 @@ public class Envestida : MonoBehaviour
         }
     }
 
-    IEnumerator RestaurarMovimientoTemporal(EnemyMove em, int id, float delay)
+    // 🆕 NUEVA FUNCIÓN: Detectar y empujar Player/Oveja
+    void DetectarYEmpujarAliados()
     {
-        yield return new WaitForSeconds(delay);
+        // Detectar objetos en el layer de aliados (Player y Oveja)
+        Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, radioDeteccion, aliadosLayer);
 
-        // Si el enemy fue destruido, em será null; controlarlo
-        if (em != null)
-            em.enabled = true;
+        foreach (Collider2D hit in hits)
+        {
+            // Ignorar al propio perro (el que está embistiendo)
+            if (hit.gameObject == gameObject)
+                continue;
 
-        // Limpiar el diccionario
-        if (reenableCoroutines.ContainsKey(id))
-            reenableCoroutines.Remove(id);
+            int id = hit.gameObject.GetInstanceID();
+            if (aliadosEmpujados.Contains(id))
+                continue;
+
+            aliadosEmpujados.Add(id);
+            Debug.Log("🐑 ¡Empujó a aliado: " + hit.gameObject.name + "!");
+
+            Rigidbody2D aliadoRb = hit.GetComponent<Rigidbody2D>();
+            if (aliadoRb != null)
+            {
+                // Empuje más suave para aliados
+                Vector2 empuje = new Vector2(
+                    direccionEmbestida * fuerzaEmpujeAliadosHorizontal,
+                    fuerzaEmpujeAliadosVertical
+                );
+
+                aliadoRb.linearVelocity = empuje;
+                Debug.Log($"🚀 Empuje a aliado aplicado: {empuje}");
+            }
+        }
     }
 
     void OnDrawGizmosSelected()
