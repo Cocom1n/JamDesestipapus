@@ -30,6 +30,7 @@ public class GameManager : MonoBehaviour
     [Header("Prefabs")]
     [SerializeField] private GameObject prefabOveja;
     [SerializeField] private GameObject prefabComida;
+    [SerializeField] private GameObject prefabOvniAlien;
 
     [Header("SpawnersEnemigos")]
     [SerializeField] private Spawner[] spawners;
@@ -139,6 +140,8 @@ public class GameManager : MonoBehaviour
         imagenLuna.SetActive(true);
         luna.transform.position = new Vector3(10f, 15f, 0f);
         sol.transform.position = new Vector3(-25f, -17f, 0f);
+
+        prefabOvniAlien.SetActive(true);
 
         foreach (Spawner spawner in spawners)
         {

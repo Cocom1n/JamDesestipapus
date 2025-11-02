@@ -128,11 +128,18 @@ public class Jefe : MonoBehaviour, IDaniable, IMorir
     // 🆕 Actualizar sprite según dirección
     void ActualizarSprite()
     {
-        if (spriteRenderer == null) return;
+        Vector3 escala = transform.localScale;
 
-        // Si va hacia la derecha (direccionActual > 0), no voltear
-        // Si va hacia la izquierda (direccionActual < 0), voltear
-        spriteRenderer.flipX = direccionActual > 0;
+        if (direccionActual > 0)
+        {
+            escala.x = Mathf.Abs(escala.x); // Positivo = derecha
+        }
+        else
+        {
+            escala.x = -Mathf.Abs(escala.x); // Negativo = izquierda
+        }
+
+        transform.localScale = escala;
     }
 
     public void RecibirDanio(float cantidad)
@@ -162,7 +169,7 @@ public class Jefe : MonoBehaviour, IDaniable, IMorir
         }
 
         enabled = false;
-       //Aquí puedes agregar: Destroy(gameObject, 2f);
+       Destroy(gameObject, 2f);
     }
 
     private void OnCollisionEnter2D(Collision2D col)

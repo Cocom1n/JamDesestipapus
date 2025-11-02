@@ -3,7 +3,7 @@
 public class Bala : MonoBehaviour
 {
     [Header("Configuración de Daño")]
-    [SerializeField] private float danio = 10f;
+    [SerializeField] private float danio = 2.5f;
     [SerializeField] private bool destruirAlImpactar = true;
 
     [Header("Tiempo de Vida")]
