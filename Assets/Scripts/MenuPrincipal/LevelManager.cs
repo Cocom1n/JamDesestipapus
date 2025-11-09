@@ -6,7 +6,7 @@ public class LevelManager : MonoBehaviour
 
     public void BotonIniciar()
     {
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene(1);
     }
     public void BotonSalir()
     {
