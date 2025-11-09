@@ -12,4 +12,8 @@ public class LevelManager : MonoBehaviour
     {
         Application.Quit();
     }
+    public void BotonvolVolverMenu()
+    {
+        SceneManager.LoadScene(1);
+    }
 }

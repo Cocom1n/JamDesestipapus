@@ -316,6 +316,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8707e077df56ee847a954cb39dd31217, type: 3}
+--- !u!1 &172402816 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7105100222151244781, guid: 8707e077df56ee847a954cb39dd31217, type: 3}
+  m_PrefabInstance: {fileID: 172402815}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &180533261
 GameObject:
   m_ObjectHideFlags: 0
@@ -631,6 +636,53 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 325724110}
   m_CullTransparentMesh: 1
+--- !u!1 &353394310
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 353394312}
+  - component: {fileID: 353394311}
+  m_Layer: 0
+  m_Name: GameManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &353394311
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 353394310}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75899322331b9bf41b1a544c08b895b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rufino: {fileID: 172402816}
+  bisco: {fileID: 429906192}
+  panelDerrota: {fileID: 4931630366508109149}
+--- !u!4 &353394312
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 353394310}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -7.879345, y: 6.3507757, z: 0.026286194}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &364172400 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6252325264166167367, guid: 85495802e8af758459c370bddcccfce8, type: 3}
@@ -836,6 +888,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b8fa17e7de2106a4a84bd2e1719cf22e, type: 3}
+--- !u!1 &429906192 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2627428186802955509, guid: b8fa17e7de2106a4a84bd2e1719cf22e, type: 3}
+  m_PrefabInstance: {fileID: 429906191}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -1429,6 +1486,7 @@ GameObject:
   - component: {fileID: 646479051}
   - component: {fileID: 646479050}
   - component: {fileID: 646479049}
+  - component: {fileID: 646479053}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Oveja
@@ -1514,9 +1572,9 @@ RectTransform:
   - {fileID: 1526803790}
   - {fileID: 1511045667}
   - {fileID: 1816711232}
-  - {fileID: 1807186379}
   - {fileID: 762663569}
   - {fileID: 1146980120}
+  - {fileID: 1807186379}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -1524,6 +1582,18 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &646479053
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 646479048}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e70d0e1ac634734f9071f93866d8d2b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &649734966
 GameObject:
   m_ObjectHideFlags: 0
@@ -7800,15 +7870,32 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7093692179081306564, guid: 3ea710a4c68a1b341947e935f9b0b294, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 646479053}
+    - target: {fileID: 7093692179081306564, guid: 3ea710a4c68a1b341947e935f9b0b294, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: BotonvolVolverMenu
+      objectReference: {fileID: 0}
     - target: {fileID: 7519703772586948783, guid: 3ea710a4c68a1b341947e935f9b0b294, type: 3}
       propertyPath: m_Name
       value: Derrota
+      objectReference: {fileID: 0}
+    - target: {fileID: 7519703772586948783, guid: 3ea710a4c68a1b341947e935f9b0b294, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3ea710a4c68a1b341947e935f9b0b294, type: 3}
+--- !u!1 &4931630366508109149 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7519703772586948783, guid: 3ea710a4c68a1b341947e935f9b0b294, type: 3}
+  m_PrefabInstance: {fileID: 4931630366508109148}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &4997962720637862691
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8005,3 +8092,4 @@ SceneRoots:
   - {fileID: 429906191}
   - {fileID: 172402815}
   - {fileID: 649734969}
+  - {fileID: 353394312}
