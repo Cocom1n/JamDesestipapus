@@ -9,7 +9,6 @@ public class RecibirDaño : MonoBehaviour, IDaniable, IMorir
     [SerializeField] private TextMeshProUGUI TextoUI;
     private float vidaActual;
 
-    [Header("Audio - Muerte Rufino")]
     [SerializeField] private AudioClip clipMuerte;  
 
     private AudioSource sfxSource;
@@ -19,7 +18,6 @@ public class RecibirDaño : MonoBehaviour, IDaniable, IMorir
     {
         vidaActual = maxVida;
 
-        // Asegurar AudioSource (si hay uno en el GameObject lo reutilizamos, si no lo añadimos)
         sfxSource = GetComponent<AudioSource>();
         if (sfxSource == null)
         {
@@ -41,9 +39,6 @@ public class RecibirDaño : MonoBehaviour, IDaniable, IMorir
 
         vidaActual -= daño;
 
-        // (Opcional) reproducir un SFX de "hit" aquí si lo agregas
-        // if (clipHit != null) sfxSource.PlayOneShot(clipHit);
-
         if (vidaActual <= 0)
         {
             Morir();
@@ -59,7 +54,6 @@ public class RecibirDaño : MonoBehaviour, IDaniable, IMorir
 
         if (clipMuerte != null && sfxSource != null)
         {
-            // Reproducir clip de muerte y esperar a que termine antes de destruir
             sfxSource.PlayOneShot(clipMuerte);
             StartCoroutine(DelayedDestroy(clipMuerte.length));
         }
@@ -71,7 +65,6 @@ public class RecibirDaño : MonoBehaviour, IDaniable, IMorir
 
     private IEnumerator DelayedDestroy(float delay)
     {
-        // Protección mínima por si el clip tiene duración 0
         yield return new WaitForSeconds(Mathf.Max(0.01f, delay));
         Destroy(gameObject);
     }
