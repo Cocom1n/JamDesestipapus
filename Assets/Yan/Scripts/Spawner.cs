@@ -5,8 +5,8 @@ public class Spawner : MonoBehaviour
 {
     [SerializeField] GameObject alien;
     [SerializeField] float alienIntervalo;
-    [SerializeField] int alienMax;
     [SerializeField] int cuantosAliens;
+    int alienMax;
     private Coroutine spawnRutina;
     private bool estaSpawneando = false;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -15,6 +15,11 @@ public class Spawner : MonoBehaviour
         
     }
     
+    public void SetAlienMax(int cantidad)
+    {
+        alienMax = cantidad;
+    }
+
     public void IniciarSpawn()
     {
         if (!estaSpawneando)

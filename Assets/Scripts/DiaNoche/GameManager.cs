@@ -42,6 +42,7 @@ public class GameManager : MonoBehaviour
     private bool esNoche = false;
     private bool esDia = false;
     private bool juegoTerminado = false;
+    private int cantDias;
 
     // ------------------------------
 
@@ -54,6 +55,7 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         IniciarDia();
+        cantDias = 1;
     }
 
     private void Update()
@@ -107,6 +109,7 @@ public class GameManager : MonoBehaviour
 
     void IniciarDia()
     {
+        cantDias++;
         esDia = true;
         esNoche = false;
         tiempoRestante = duracionDia;
@@ -155,6 +158,7 @@ public class GameManager : MonoBehaviour
         {
             if (spawner != null)
             {
+                spawner.SetAlienMax(2*cantDias); //multiplica la cantidad de aliens minimos por la cantidad de noches superadas(?
                 spawner.IniciarSpawn();
             }
         }
@@ -237,6 +241,30 @@ public class GameManager : MonoBehaviour
             }
         }
         comidasVivas.AddRange(nuevasComidas);
+    }
+    public void ConsumirComida(int cantidadNecesaria)
+    {
+        int comidaTotal = comidasVivas.Count;
+        if (comidaTotal >= cantidadNecesaria)
+        {
+            for (int i = 0; i < cantidadNecesaria; i++)
+            {
+                if (comidasVivas.Count > 0)
+                {
+                    Comida comidaAEliminar = comidasVivas[0]; // Tomar la primera comida
+                    comidasVivas.RemoveAt(0); // Remover de la lista
+
+                    if (comidaAEliminar != null)
+                    {
+                        Destroy(comidaAEliminar.gameObject); // Destruir el objeto del mundo
+                    }
+                }
+            }
+        }
+    }
+    public int GetCantidadComida()
+    {
+        return comidasVivas.Count;
     }
 
     // ------------------------------
