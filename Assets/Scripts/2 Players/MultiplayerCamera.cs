@@ -1,11 +1,13 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Camera))] // Asegura que este script esté en una cámara
 public class MultiplayerCamera : MonoBehaviour
 {
     [Header("Jugadores")]
-    [SerializeField] private Transform player1;
-    [SerializeField] private Transform player2;
+    //[SerializeField] private Transform player1;
+    //[SerializeField] private Transform player2;
+    private List<Transform> jugadores = new List<Transform>();
 
     [Header("Tamaño limite de la camara")]
     [SerializeField] private float min = 6.5f;
@@ -32,15 +34,41 @@ public class MultiplayerCamera : MonoBehaviour
 
     void LateUpdate()
     {
-        Move();
+        ActualizarReferenciasDeJugadores();
+        if (jugadores.Count == 0)
+        {
+            return;
+        }
 
-        Zoom();
+        if (jugadores.Count == 1)
+        {
+            Vector3 targetPosition = new Vector3(jugadores[0].position.x, jugadores[0].position.y, transform.position.z);
+            transform.position = Vector3.SmoothDamp(transform.position, targetPosition, ref velocidadMovimiento, suavizadoMovimiento);
+
+            cam.orthographicSize = Mathf.SmoothDamp(cam.orthographicSize, min, ref velocidadZoom, suavizadoZoom);
+        }
+        else
+        {
+            Move();
+            Zoom();
+        }
+
+    }
+
+    public void ActualizarReferenciasDeJugadores()
+    {
+        jugadores.Clear();
+        GameObject[] playerObjects = GameObject.FindGameObjectsWithTag("Player");
+        foreach (GameObject go in playerObjects)
+        {
+            jugadores.Add(go.transform);
+        }
     }
 
     //se busca un puntomedio entre los dos jugadores y hace q la camara se mueva a ese punto 
     void Move()
     {
-        Vector3 midpoint = (player1.position + player2.position) / 2f;
+        Vector3 midpoint = (jugadores[0].position + jugadores[1].position) / 2f;
         Vector3 targetPosition = new Vector3(midpoint.x, midpoint.y, transform.position.z);
         transform.position = Vector3.SmoothDamp(transform.position, targetPosition, ref velocidadMovimiento, suavizadoMovimiento);
     }
@@ -49,11 +77,12 @@ public class MultiplayerCamera : MonoBehaviour
     //para q los dos puedan estar dentro de la camara
     void Zoom()
     {
-        float distanciaY = Mathf.Abs(player1.position.y - player2.position.y) + padding;
 
-        float distanciaX = Mathf.Abs(player1.position.x - player2.position.x) + padding;
+        float distanciaY = Mathf.Abs(jugadores[0].position.y - jugadores[1].position.y) + padding;
 
-        float tamanioNecesarioX = distanciaX / cam.aspect; 
+        float distanciaX = Mathf.Abs(jugadores[0].position.x - jugadores[1].position.x) + padding;
+
+        float tamanioNecesarioX = distanciaX / cam.aspect;
 
         float tamanioFinal = Mathf.Max(distanciaY * 0.5f, tamanioNecesarioX * 0.5f);
         tamanioFinal = Mathf.Clamp(tamanioFinal, min, max);

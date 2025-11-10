@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 3560058551006637196}
   - component: {fileID: 39074143080230919}
   - component: {fileID: 935705370028825769}
+  - component: {fileID: 6511487528858526092}
   m_Layer: 6
   m_Name: Prowl_0
   m_TagString: Player
@@ -181,6 +182,10 @@ MonoBehaviour:
   playerLayerName: Player
   enemyLayerName: Enemy
   spriteRenderer: {fileID: 621476610490087048}
+  audioSource: {fileID: 0}
+  sonidoEmbestida: {fileID: 0}
+  volumenEmbestida: 0.7
+  volumenImpacto: 0.5
 --- !u!114 &935705370028825769
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -195,6 +200,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxVida: 30
   TextoUI: {fileID: 0}
+  clipMuerte: {fileID: 0}
+--- !u!114 &6511487528858526092
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2627428186802955509}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf37f15ed0c501e4ca7844a0105b032c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5517471250350827708
 GameObject:
   m_ObjectHideFlags: 0

@@ -3,28 +3,15 @@ using TMPro; // Si quieres mostrar UI
 
 public class ResureccionPachamama : MonoBehaviour
 {
-    [Header("Referencias Jugadores")]
-    [SerializeField] private GameObject rufinoReal;
-    [SerializeField] private GameObject bizcoReal;
     [SerializeField] private GameObject rufinoPrefab;
     [SerializeField] private GameObject bizcoPrefab;
-
-    [Header("Configuración Resurrección")]
-    [SerializeField] private int pagoPorResureccion = 10; // Cantidad de zanahorias necesarias
-    /*
-    [Header("UI (Opcional)")]
-    [SerializeField] private GameObject textoInteraccion; // Panel o texto que aparece al acercarse
-    [SerializeField] private TextMeshProUGUI textoInfo; // Texto que muestra la info
-    */
+    [SerializeField] private MultiplayerCamera camarita;
+    private int pagoPorResureccion = 5; // Cantidad de zanahorias necesarias
+   
     private bool jugadorDentro;
-    private GameObject rufinoActual;
-    private GameObject bizcoActual;
 
     void Start()
     {
-        /*
-        if (textoInteraccion != null)
-            textoInteraccion.SetActive(false);*/
     }
 
     void Update()
@@ -33,8 +20,6 @@ public class ResureccionPachamama : MonoBehaviour
         {
             IntentarRevivir();
         }
-
-        ActualizarTextoUI();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -42,9 +27,6 @@ public class ResureccionPachamama : MonoBehaviour
         if (collision.CompareTag("Player"))
         {
             jugadorDentro = true;
-            /*
-            if (textoInteraccion != null)
-                textoInteraccion.SetActive(true);*/
         }
     }
 
@@ -53,8 +35,6 @@ public class ResureccionPachamama : MonoBehaviour
         if (collision.CompareTag("Player"))
         {
             jugadorDentro = false;
-            //if (textoInteraccion != null)
-            //    textoInteraccion.SetActive(false);
         }
     }
 
@@ -62,15 +42,16 @@ public class ResureccionPachamama : MonoBehaviour
     {
 
         // Verificar si algún jugador está muerto
-        bool hayJugadorMuerto = (rufinoReal == null || bizcoReal == null);
+        bool rufinoEstaVivo = (FindFirstObjectByType<SoyRufino>() != null);
+        bool bizcoEstaVivo = (FindFirstObjectByType<SoyBizco>() != null);
 
-        if (!hayJugadorMuerto)
+        if (rufinoEstaVivo && bizcoEstaVivo)
         {
+            //se podria mostrar un textito en pantalla o que la pachamama se tire algun dialogo sjsjs
             Debug.Log("Ambos jugadores están vivos. No hay nadie que revivir.");
             return;
         }
 
-        // Verificar si hay suficiente comida
         int comidaDisponible = GameManager.Instance.GetCantidadComida();
 
         if (comidaDisponible >= pagoPorResureccion)
@@ -79,7 +60,7 @@ public class ResureccionPachamama : MonoBehaviour
             if (comidaDisponible>=pagoPorResureccion)
             {
                 GameManager.Instance.ConsumirComida(pagoPorResureccion);
-                RevivirJugador();
+                RevivirJugador(rufinoEstaVivo, bizcoEstaVivo);
             }
         }
         else
@@ -88,53 +69,25 @@ public class ResureccionPachamama : MonoBehaviour
         }
     }
 
-    private void RevivirJugador()
+    private void RevivirJugador(bool rufinoYaEstaVivo, bool bizcoYaEstaVivo)
     {
         Vector3 posicionRevivir = transform.position + Vector3.up * 2f;
 
         // Revivir Rufino si está muerto
-        if (rufinoReal == null)
+        if (!rufinoYaEstaVivo)
         {
             Instantiate(rufinoPrefab, posicionRevivir, Quaternion.identity);
             Debug.Log("¡Rufino ha sido revivido!");
         }
 
         // Revivir Bizco si está muerto
-        if (bizcoReal == null)
+        if (!bizcoYaEstaVivo)
         {
             Instantiate(bizcoPrefab, posicionRevivir, Quaternion.identity);
             Debug.Log("¡Bizco ha sido revivido!");
         }
+        camarita.ActualizarReferenciasDeJugadores();
     }
 
-    private void ActualizarTextoUI()
-    {
-        if (/*textoInfo != null && */jugadorDentro)
-        {
-            if (GameManager.Instance != null)
-            {
-                int comidaActual = GameManager.Instance.GetCantidadComida();
-                bool hayMuerto = (rufinoActual == null || bizcoActual == null);
-                /*
-                if (hayMuerto)
-                {
-                    textoInfo.text = $"[E] Revivir compañero\nCosto: {pagoPorResureccion} zanahorias\nTienes: {comidaActual}";
-
-                    // Cambiar color según si puede o no revivir
-                    if (comidaActual >= pagoPorResureccion)
-                        textoInfo.color = Color.green;
-                    else
-                        textoInfo.color = Color.red;
-                }
-                else
-                {
-                    textoInfo.text = "Ambos jugadores están vivos";
-                    textoInfo.color = Color.white;
-                }*/
-            }
-        }
-    }
-
-    // Llamar este método cuando un jugador muera para actualizar la referencia
 
 }
