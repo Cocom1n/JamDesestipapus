@@ -52,12 +52,10 @@ public class WeaponManager : MonoBehaviour
         if (armaActual == TipoArma.Escopeta)
         {
             armaActual = TipoArma.Lazo;
-            Debug.Log("🪢 Equipaste el LAZO");
         }
         else
         {
             armaActual = TipoArma.Escopeta;
-            Debug.Log("🔫 Equipaste la ESCOPETA");
         }
 
         ActualizarArma();

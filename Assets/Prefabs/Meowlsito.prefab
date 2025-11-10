@@ -453,8 +453,8 @@ MonoBehaviour:
   bulletSpawn: {fileID: 3576999281228408752}
   bulletSpeed: 20
   cooldownDisparo: 0.3
-  clipDisparo: {fileID: 0}
-  sfxSource: {fileID: 0}
+  clipDisparo: {fileID: 8300000, guid: 33881cd1815ac2d448a1739798897385, type: 3}
+  sfxSource: {fileID: 4795444891833267604}
   sfxVolume: 1
 --- !u!114 &7599295882021595250
 MonoBehaviour:
@@ -588,8 +588,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxVida: 30
-  TextoUI: {fileID: 0}
-  clipMuerte: {fileID: 0}
+  clipMuerte: {fileID: 8300000, guid: fa15565ee77535447b20c0b4fd87a071, type: 3}
 --- !u!114 &1162808507403847462
 MonoBehaviour:
   m_ObjectHideFlags: 0

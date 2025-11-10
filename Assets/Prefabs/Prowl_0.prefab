@@ -183,8 +183,8 @@ MonoBehaviour:
   playerLayerName: Player
   enemyLayerName: Enemy
   spriteRenderer: {fileID: 621476610490087048}
-  audioSource: {fileID: 0}
-  sonidoEmbestida: {fileID: 0}
+  audioSource: {fileID: 606167248857787392}
+  sonidoEmbestida: {fileID: 8300000, guid: 0d03814300bec7f46ba9c951c20e23a8, type: 3}
   volumenEmbestida: 0.7
   volumenImpacto: 0.5
 --- !u!114 &935705370028825769
@@ -200,7 +200,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxVida: 30
-  TextoUI: {fileID: 0}
   clipMuerte: {fileID: 0}
 --- !u!114 &6511487528858526092
 MonoBehaviour:

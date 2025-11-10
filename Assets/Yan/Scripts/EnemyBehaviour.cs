@@ -39,7 +39,9 @@ public class EnemyBehaviour : Enemy
         }
         if (collision.CompareTag("Player") || collision.CompareTag("Oveja"))
         {
-            IDaniable objetoDaniable = collision.GetComponent<IDaniable>();
+
+            //IDaniable objetoDaniable = collision.GetComponent<IDaniable>();
+            IDaniable objetoDaniable = collision.GetComponentInParent<IDaniable>();
 
             if (objetoDaniable != null)
             {

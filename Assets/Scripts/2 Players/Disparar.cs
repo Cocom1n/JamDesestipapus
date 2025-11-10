@@ -13,7 +13,6 @@ public class Disparar : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             shoot();
-            Debug.Log("disparopapu");
         }
             
 

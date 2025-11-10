@@ -81,11 +81,6 @@ public class Envestida : MonoBehaviour
         playerLayer = LayerMask.NameToLayer(playerLayerName);
         enemyLayerInt = LayerMask.NameToLayer(enemyLayerName);
 
-        if (playerLayer == -1)
-            Debug.LogError($"⚠️ Layer '{playerLayerName}' no existe!");
-
-        if (enemyLayerInt == -1)
-            Debug.LogError($"⚠️ Layer '{enemyLayerName}' no existe!");
     }
 
     void Update()
@@ -140,7 +135,6 @@ public class Envestida : MonoBehaviour
         if (animatorController != null)
             animatorController.SetTrigger("Embestida");
 
-        // 🆕 REPRODUCIR SONIDO DE EMBESTIDA
         ReproducirSonidoEmbestida();
     }
 
@@ -156,12 +150,10 @@ public class Envestida : MonoBehaviour
     IEnumerator InvencibilidadTemporal()
     {
         Physics2D.IgnoreLayerCollision(playerLayer, enemyLayerInt, true);
-        Debug.Log("💨 Invencibilidad ACTIVADA");
 
         yield return new WaitForSeconds(duracionInvencibilidad);
 
         Physics2D.IgnoreLayerCollision(playerLayer, enemyLayerInt, false);
-        Debug.Log("✋ Invencibilidad DESACTIVADA");
 
         invencibilidadCoroutine = null;
     }
@@ -178,7 +170,6 @@ public class Envestida : MonoBehaviour
         if (audioSource != null && sonidoEmbestida != null)
         {
             audioSource.PlayOneShot(sonidoEmbestida, volumenEmbestida);
-            Debug.Log("🎵 Sonido de embestida reproducido");
         }
     }
 
@@ -194,8 +185,6 @@ public class Envestida : MonoBehaviour
                 continue;
 
             enemigosGolpeados.Add(id);
-            Debug.Log("💥 ¡Golpeó a enemigo: " + hit.gameObject.name + "!");
-
 
             Rigidbody2D enemyRb = hit.GetComponent<Rigidbody2D>();
             if (enemyRb != null)
@@ -243,8 +232,6 @@ public class Envestida : MonoBehaviour
                 continue;
 
             aliadosEmpujados.Add(id);
-            Debug.Log("🐑 ¡Empujó a aliado: " + hit.gameObject.name + "!");
-
 
             Rigidbody2D aliadoRb = hit.GetComponent<Rigidbody2D>();
             if (aliadoRb != null)
@@ -255,7 +242,6 @@ public class Envestida : MonoBehaviour
                 );
 
                 aliadoRb.linearVelocity = empuje;
-                Debug.Log($"🚀 Empuje a aliado aplicado: {empuje}");
             }
         }
     }

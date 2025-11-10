@@ -6,7 +6,7 @@ using TMPro;
 public class RecibirDaño : MonoBehaviour, IDaniable, IMorir
 {
     [SerializeField] public float maxVida;
-    [SerializeField] private TextMeshProUGUI TextoUI;
+    private TextMeshProUGUI TextoUI;
     private float vidaActual;
 
     [SerializeField] private AudioClip clipMuerte;  
@@ -17,6 +17,28 @@ public class RecibirDaño : MonoBehaviour, IDaniable, IMorir
     public void Start()
     {
         vidaActual = maxVida;
+        estaMuerto = false;
+
+        if(TextoUI == null)
+        {
+            if(GetComponent<SoyRufino>() != null){
+                HudRufino hud = FindFirstObjectByType<HudRufino>();
+                if (hud != null)
+                {
+                    TextoUI = hud.GetComponent<TextMeshProUGUI>();
+                }
+            }
+            if (GetComponent<SoyBizco>() != null)
+            {
+                HudBizco hud = FindFirstObjectByType<HudBizco>();
+                if (hud != null)
+                {
+                    TextoUI = hud.GetComponent<TextMeshProUGUI>();
+                }
+            }
+        }
+        
+        
 
         sfxSource = GetComponent<AudioSource>();
         if (sfxSource == null)
@@ -25,6 +47,9 @@ public class RecibirDaño : MonoBehaviour, IDaniable, IMorir
             sfxSource.playOnAwake = false;
             sfxSource.loop = false;
         }
+
+        if (TextoUI != null)
+            TextoUI.text = vidaActual.ToString("0");
     }
 
     public void Update()
@@ -50,7 +75,10 @@ public class RecibirDaño : MonoBehaviour, IDaniable, IMorir
         if (estaMuerto) return;
         estaMuerto = true;
 
-        TextoUI.text = "0";
+        if (TextoUI != null)
+        {
+            TextoUI.text = "0";
+        }
 
         if (clipMuerte != null && sfxSource != null)
         {

@@ -75,7 +75,6 @@ public class MusicManager : MonoBehaviour
         }
 
         esNocheActual = false;
-        Debug.Log("🌞 Música de día iniciada");
     }
 
     public void IniciarMusicaNoche()
@@ -92,7 +91,6 @@ public class MusicManager : MonoBehaviour
         }
 
         esNocheActual = true;
-        Debug.Log("🌙 Música de noche iniciada");
     }
 
     // ============================

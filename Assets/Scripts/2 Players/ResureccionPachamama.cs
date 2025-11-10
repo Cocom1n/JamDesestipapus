@@ -6,7 +6,7 @@ public class ResureccionPachamama : MonoBehaviour
     [SerializeField] private GameObject rufinoPrefab;
     [SerializeField] private GameObject bizcoPrefab;
     [SerializeField] private MultiplayerCamera camarita;
-    private int pagoPorResureccion = 5; // Cantidad de zanahorias necesarias
+    private int pagoPorResureccion = 2; // Cantidad de zanahorias necesarias
    
     private bool jugadorDentro;
 
